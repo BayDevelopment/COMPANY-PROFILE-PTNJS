@@ -4,7 +4,7 @@
 <div class="container py-4 fade-in">
     <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
         <div>
-            <h2 class="fw-bold text-warning"><i class="fa-solid fa-file-pen me-2 text-warning"></i> <?= esc($sub_judul) ?></h2>
+            <h2 class="fw-bold text-warning"><?= esc($sub_judul) ?></h2>
             <p class="text-muted mb-0">Edit data layanan dengan mudah</p>
         </div>
         <ol class="breadcrumb mb-0">
