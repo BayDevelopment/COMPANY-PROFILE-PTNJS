@@ -1,0 +1,1633 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  font-family: "Poppins", serif;
+}
+
+.native_logo {
+  width: 40px;
+}
+.alert_about {
+  margin-top: 100px;
+}
+.cover_paragraft {
+  padding: 10px;
+  justify-content: center;
+  text-align: center;
+}
+
+.cover_img_empty {
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.size_img_empty {
+  width: 300px;
+}
+
+.caption_img_empty {
+  font-size: 21px;
+  font-weight: 500;
+  justify-content: center;
+  text-align: center;
+}
+
+.fc_native {
+  border: none;
+  border-radius: none;
+  border-bottom: 1px solid rgb(255, 215, 69);
+  box-shadow: none;
+}
+
+.fc_native:focus {
+  border: none;
+  border-radius: none;
+  border-bottom: 1px solid rgb(255, 215, 69);
+  box-shadow: none;
+}
+.card_cooperation {
+  padding: 10px;
+  width: 800px;
+  margin: auto;
+  box-shadow: rgba(255, 222, 76, 0.801) 0px 10px 15px -3px,
+    rgba(255, 219, 16, 0.76) 0px 4px 6px -2px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+}
+
+.active_native_outline {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid rgb(248, 192, 7);
+  color: rgb(248, 192, 7);
+  transition: 0.2s;
+  text-decoration: none;
+}
+
+.active_native_outline:hover {
+  padding: 10px;
+  background-color: rgb(248, 192, 7);
+  border: 1px solid rgb(248, 192, 7);
+  color: white;
+  transition: 0.2s;
+  text-decoration: none;
+}
+
+.bg-native {
+  background-color: white;
+  box-shadow: rgba(37, 37, 37, 0.938) 0px 10px 10px -10px;
+}
+
+.native_carousel {
+  max-width: 100%;
+  background: linear-gradient(rgba(20, 20, 20, 0.233), rgba(20, 20, 20, 0.911)),
+    url(/assets/img/jumbo_new.jpg);
+  min-height: 100vh;
+  background-size: cover;
+}
+
+.judul_carousel {
+  margin-top: -250px !important;
+  font-size: 28px;
+  font-weight: bold;
+  /* Gaya font */
+  background: rgb(226, 226, 226);
+  background: linear-gradient(
+    90deg,
+    rgba(226, 226, 226, 1) 0%,
+    rgba(244, 220, 34, 0.82) 0%,
+    rgba(244, 244, 244, 0.99) 62%
+  );
+  background-clip: text;
+  color: transparent;
+  /* Menghapus warna teks asli */
+  -webkit-background-clip: text;
+  /* Masih menjaga kompatibilitas untuk beberapa browser */
+}
+
+.active_native {
+  font-weight: 500;
+  color: rgb(248, 192, 7);
+}
+
+.active_native:hover {
+  font-weight: 500;
+  color: rgb(248, 192, 7);
+}
+
+.font_native {
+  position: relative;
+  text-decoration: none;
+  color: black;
+  /* Warna teks */
+}
+
+.font_native:hover {
+  position: relative;
+  text-decoration: none;
+  color: rgb(248, 192, 7);
+  /* Warna teks */
+}
+
+.font_native::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  /* Ketebalan garis */
+  background-color: rgb(248, 192, 7);
+  /* Warna garis */
+  transition: width 0.3s ease;
+  /* Efek transisi untuk animasi */
+}
+
+.font_native:hover::before {
+  width: 100%;
+  /* Lebar garis saat hover */
+}
+
+.section_one {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  height: 80vh;
+}
+
+.spacing_one {
+  margin-top: 50px;
+}
+
+.judul_col {
+  font-size: 32px;
+  color: black;
+}
+
+.paragraft_native {
+  font-size: 21px;
+  color: rgb(66, 66, 66);
+  line-height: 2.4;
+  font-weight: 300;
+}
+.span_date {
+  font-size: 15px;
+  padding: 5px;
+  font-weight: 500;
+}
+.img_native {
+  margin: auto;
+  justify-content: start;
+  text-align: start;
+  width: 310px;
+  border-radius: 10px;
+  box-shadow: rgba(250, 215, 17, 0.562) 1.95px 1.95px 2.6px;
+}
+
+.btn_a_public {
+  padding: 15px;
+  background-color: white;
+  color: rgb(248, 192, 7);
+  border: 1px solid rgb(248, 192, 7);
+  font-weight: 500;
+  transition: 0.2s;
+  text-decoration: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.btn_a_public:hover {
+  padding: 15px;
+  background-color: rgb(248, 192, 7);
+  border: 1px solid rgb(248, 192, 7);
+  color: white;
+  transition: 0.2s;
+  text-decoration: none;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.btn-shiny {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #fae20dff, #fae20dff);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 0;
+  position: relative;
+  overflow: hidden;
+  transition: 0.25s ease;
+  box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+}
+
+.btn-shiny::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.btn-shiny:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+  color: #fff;
+}
+
+.btn-shiny:hover::before {
+  transform: translateX(120%);
+}
+
+/* section two */
+.section_two {
+  background-image: url(/assets/img/dott.jpg);
+  width: 100%;
+  height: 90vh;
+  padding: 15px;
+}
+
+.judul_section {
+  position: relative;
+  font-size: 32px;
+  color: black;
+  justify-content: start;
+  text-align: start;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.judul_section::after {
+  content: "";
+  display: block;
+  width: 300px;
+  height: 2px;
+  /* Ketebalan garis */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(246, 236, 81, 1) 96%
+  );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: garisAnimasi0 2s infinite alternate;
+}
+
+@keyframes garisAnimasi0 {
+  0% {
+    width: 100px;
+  }
+
+  100% {
+    width: 300px;
+    /* Panjang maksimum yang diinginkan */
+  }
+}
+
+.card {
+  box-shadow: rgba(250, 215, 17, 0.562) 1.95px 1.95px 2.6px;
+}
+
+.cover_opsi_project {
+  padding: 5px;
+  justify-content: center;
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 10px;
+}
+
+.cover_link_native {
+  margin-top: 40px;
+  justify-content: center;
+  text-align: center;
+}
+.cover_link_native_project {
+  margin-top: 30px;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-img-top {
+  height: 30vh;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* sectio tree */
+.section_tree {
+  padding: 10px;
+  height: 80vh;
+}
+
+/* section patner */
+.section_partner {
+  padding: 20px;
+}
+
+.img_owl_carousel {
+  width: 150px;
+  padding: 15px;
+  height: 100px;
+}
+
+.owl-stage-outer {
+  width: auto;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+/* section_count */
+.section_count_project {
+  padding: 15px;
+  margin-top: 50px;
+}
+
+.judul_count {
+  position: relative;
+  font-size: 32px;
+  color: black;
+  justify-content: start;
+  text-align: start;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.judul_count::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  /* Ketebalan garis */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(246, 236, 81, 1) 96%
+  );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: garisAnimasi 2s infinite alternate;
+}
+
+@keyframes garisAnimasi {
+  0% {
+    width: 100px;
+  }
+
+  100% {
+    width: 200px;
+    /* Panjang maksimum yang diinginkan */
+  }
+}
+
+.body_count_project {
+  min-height: auto;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 4%,
+    rgba(244, 220, 34, 0.8211659663865546) 79%,
+    rgba(255, 255, 255, 0.989233193277311) 100%
+  );
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.native_footer_logo {
+  width: 60px;
+  margin: auto;
+}
+
+.cover_head_count {
+  padding: 15px;
+}
+
+.body_col_count {
+  padding: 15px;
+  justify-content: center;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.295) 1.95px 1.95px 2.6px;
+  margin-top: 10px;
+}
+
+.count {
+  font-size: 32px;
+}
+
+.text_count {
+  font-size: 24px;
+}
+
+/* about */
+.head-page-title {
+  position: relative;
+  display: block;
+  /* Menjamin elemen berada dalam satu baris */
+  padding: 10px;
+  background-color: rgb(124, 122, 122);
+  font-size: 28px;
+  font-weight: 400;
+  /* Gaya font */
+  background: rgb(226, 226, 226);
+  background: linear-gradient(
+    90deg,
+    rgba(226, 226, 226, 1) 0%,
+    rgb(244, 220, 34) 100%,
+    rgba(244, 244, 244, 0.989233193277311) 62%
+  );
+  -webkit-background-clip: text;
+  /* Menyusun gradient hanya pada teks */
+  color: transparent;
+  /* Menghapus warna teks asli */
+  justify-content: center;
+  text-align: center;
+}
+
+.head-page-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Menyelaraskan garis agar tepat di tengah */
+  width: 100px;
+  /* Menyesuaikan lebar garis */
+  height: 2px;
+  /* Tebal garis bawah */
+  background-color: rgba(248, 192, 7, 0.479);
+  /* Warna garis bawah */
+}
+
+.cover_page_title {
+  padding: 5px;
+  margin-top: 100px;
+  margin-bottom: 25px;
+}
+
+.cover_img_head {
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.size_img_head {
+  box-shadow: 1px 2px 3px rgb(255, 183, 27);
+  width: 300px;
+}
+
+.cover_judul_two {
+  padding: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 500px;
+  justify-content: start;
+  text-align: start;
+  background-color: rgba(247, 247, 247, 0.74);
+  border-left: 2px solid rgb(255, 183, 27);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.cover_paragraft_two {
+  margin-bottom: 25px;
+}
+
+.title_two {
+  font-size: 28px;
+  font-weight: 400;
+  /* Gaya font */
+  background: linear-gradient(
+    90deg,
+    rgba(226, 226, 226, 1) 0%,
+    rgb(244, 220, 34) 50%,
+    /* Sesuaikan posisi warna */ rgba(244, 244, 244, 0.99) 100%
+  );
+  -webkit-background-clip: text; /* Menyusun gradien hanya pada teks */
+  color: transparent; /* Menghapus warna teks asli agar gradien terlihat */
+}
+
+.paragraft_two {
+  font-size: 19px;
+  line-height: 1.9;
+  color: rgba(124, 124, 124, 0.815);
+}
+
+/* Visi dan misi */
+.visi,
+.misi {
+  font-size: 21px;
+  color: rgb(255, 183, 27);
+  font-weight: 500;
+}
+
+.opsi-semifooter {
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.native_a_semifooter_none {
+  text-decoration: none;
+  color: rgba(255, 183, 27, 0.493);
+  font-size: 21px;
+  transition: 0.2s;
+  cursor: auto;
+}
+
+.native_a_semifooter {
+  text-decoration: none;
+  color: rgb(255, 183, 27);
+  font-size: 21px;
+  transition: 0.2s;
+}
+
+.native_a_semifooter:hover {
+  text-decoration: none;
+  color: rgb(255, 183, 27);
+  font-size: 21px;
+  transition: 0.2s;
+  transform: translateY(-5%);
+}
+
+.section_content_services {
+  margin-bottom: 50px;
+}
+
+.text_services {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(124, 124, 124, 0.815);
+  text-align: center;
+  padding: 5px;
+  line-height: 1.5;
+}
+
+/* section footer */
+.section_footer {
+  min-height: auto;
+  padding: 15px;
+  background: rgb(226, 226, 226);
+  background: linear-gradient(
+    90deg,
+    rgba(226, 226, 226, 1) 4%,
+    rgba(244, 220, 34, 0.8211659663865546) 25%,
+    rgba(244, 244, 244, 0.989233193277311) 88%
+  );
+}
+
+footer {
+  background: rgb(226, 226, 226);
+  background: linear-gradient(
+    90deg,
+    rgba(226, 226, 226, 1) 4%,
+    rgba(244, 220, 34, 0.8211659663865546) 25%,
+    rgba(244, 244, 244, 0.989233193277311) 88%
+  );
+}
+
+.text_footer {
+  margin-bottom: -10px;
+  padding: 10px;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+  color: black;
+  /* Warna teks */
+}
+
+.text_footer ::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  /* Posisi dari kiri 50% */
+  transform: translateX(-50%);
+  /* Menggeser garis ke kiri agar berada di tengah */
+  width: 50%;
+  /* Lebar garis 50% dari lebar elemen */
+  height: 1px;
+  /* Ketebalan garis */
+  background-color: rgba(136, 134, 134, 0.801);
+  /* Warna garis hitam */
+}
+
+.judul_footer {
+  font-size: 19px;
+}
+
+.native_link {
+  transition: 0.2s;
+  color: white;
+}
+
+.native_link:hover {
+  transition: 0.2s;
+  color: rgb(248, 192, 7);
+  transform: translateX(2%);
+}
+
+.native_location {
+  transition: 0.2s;
+  color: white;
+}
+
+.native_location:hover {
+  transition: 0.2s;
+  color: rgb(248, 192, 7);
+}
+
+.text-link {
+  transition: 0.2s;
+  color: black;
+  font-weight: 500;
+}
+
+.text-link:hover {
+  transition: 0.2s;
+  color: rgb(248, 192, 7);
+}
+
+.iframe_native {
+  box-shadow: 1px 2px 3px rgb(248, 192, 7);
+  width: auto;
+  height: auto;
+}
+
+.nav_desktop {
+  display: none;
+}
+
+.nav_mobile {
+  display: block;
+}
+
+/* contact */
+.text_contact {
+  font-size: 32px;
+  font-weight: 400;
+  color: rgb(95, 95, 95);
+  padding: 10px;
+  background-color: rgba(247, 244, 244, 0.473);
+  margin-top: 50px;
+  border-left: 2px solid rgb(248, 192, 7);
+}
+
+.judul_form {
+  position: relative;
+  font-size: 27px;
+  color: black;
+  justify-content: start;
+  text-align: start;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+.judul_form::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 1.9px;
+  /* Ketebalan garis */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(246, 236, 81, 1) 96%
+  );
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: garisAnimasi 2s infinite alternate;
+}
+.fl_proposal::after {
+  content: " (PDF - Maks 1MB)";
+  font-weight: bold;
+  color: red;
+  margin-left: 5px;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fl_perusahaan::after {
+  content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+  font-weight: bold;
+  color: red;
+  margin-left: 5px;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fl_dnpwp::after {
+  content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+  font-weight: bold;
+  color: red;
+  margin-left: 5px;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fl_sp::after {
+  content: " (PDF - Maks 1MB)";
+  font-weight: bold;
+  color: red;
+  margin-left: 5px;
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.section_content_contact {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.iframe_native_contact {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /* Pastikan iframe ada di bawah */
+}
+
+.cover_card_form {
+  position: relative;
+  z-index: 2;
+  /* Pastikan form berada di atas iframe */
+  background: rgba(255, 255, 255, 0.8);
+  /* Warna putih dengan transparansi 80% */
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  /* Efek blur pada background */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+}
+.text_p_translite {
+  font-size: 18px;
+  color: black;
+}
+.coo_active {
+  background-color: rgb(248, 192, 7);
+  color: white;
+}
+.cover_form_cooperation {
+  padding: 20px;
+}
+/*  */
+@media screen and (min-width: 768px) {
+  .native_carousel {
+    max-width: 100%;
+    background: linear-gradient(
+        rgba(20, 20, 20, 0.233),
+        rgba(20, 20, 20, 0.911)
+      ),
+      url(/assets/img/jumbo_new.jpg);
+    min-height: 100vh;
+    background-size: cover;
+    background-position: right;
+  }
+
+  .nav_desktop {
+    display: block;
+  }
+
+  .nav_mobile {
+    display: none;
+  }
+
+  .active_native_outline {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 412px) and (max-width: 412px) {
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: 10px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .section_two {
+    margin-bottom: -600px;
+  }
+  .section_tree {
+    margin-bottom: -700px;
+  }
+}
+@media screen and (min-width: 414px) and (max-width: 414px) {
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: 60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .section_two {
+    margin-bottom: -600px;
+  }
+  .section_tree {
+    margin-bottom: -700px;
+  }
+}
+@media screen and (min-width: 390px) and (max-width: 390px) {
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: 60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .section_two {
+    margin-bottom: -600px;
+  }
+  .section_tree {
+    margin-bottom: -700px;
+  }
+}
+@media screen and (min-width: 460px) and (max-width: 460px) {
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: 60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+@media screen and (min-width: 430px) and (max-width: 430px) {
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: 60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+@media screen and (min-width: 375px) and (max-width: 375px) {
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+    width: 320px !important;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: -60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .iframe_native {
+    width: 280px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+@media screen and (min-width: 360px) and (max-width: 360px) {
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+    width: 320px !important;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: -60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .iframe_native {
+    width: 280px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+@media screen and (min-width: 365px) and (max-width: 365px) {
+  .card_cooperation {
+    width: auto;
+  }
+  .judul_carousel {
+    font-size: 16px;
+  }
+  .img_native {
+    margin-top: 40px;
+    width: 320px !important;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: -60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .iframe_native {
+    width: 280px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 768px) {
+  .judul_carousel {
+    font-size: 21px;
+  }
+  .img_native {
+    margin-top: 40px;
+    width: 320px;
+  }
+  .card {
+    margin-bottom: 10px;
+  }
+  .section_two {
+    margin-top: 280px;
+  }
+  .section_tree {
+    margin-top: 620px;
+  }
+  .section_count_project {
+    margin-top: 60px;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+  .navbar-toggler:focus {
+    border: none;
+    box-shadow: none;
+  }
+  .judul_footer {
+    margin-top: 40px;
+  }
+
+  .cover_judul_two {
+    width: auto;
+  }
+  .paragraft_two {
+    line-height: 1.9;
+  }
+  .text_services {
+    line-height: 1.8;
+  }
+  .text_contact {
+    font-size: 18px;
+  }
+  .active_native_outline {
+    margin-top: 15px;
+  }
+  .iframe_native {
+    width: 620px;
+  }
+  .size_img_head {
+    width: 600px;
+  }
+  .card_cooperation {
+    width: auto;
+  }
+  .fl_proposal::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_perusahaan::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_dnpwp::after {
+    content: " (PDF, JPG, JPEG, PNG - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .fl_sp::after {
+    content: " (PDF - Maks 1MB)";
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+    font-size: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
