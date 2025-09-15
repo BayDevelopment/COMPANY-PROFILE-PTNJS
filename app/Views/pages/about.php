@@ -186,6 +186,42 @@
         opacity: 1;
         transform: none;
     }
+
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
+    }
 </style>
 
 <div class="container page-wrap">
@@ -214,7 +250,7 @@
                 </div>
 
                 <div class="title_two"><?= esc($d_ab['judul_about']) ?></div>
-                <div class="cover_paragraft_two">
+                <div class="p-4 cover_paragraft_two">
                     <p class="paragraft_two"><?= esc($d_ab['title_about']) ?></p>
                 </div>
             <?php endforeach; ?>

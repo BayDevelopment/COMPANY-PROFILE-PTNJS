@@ -23,7 +23,7 @@
     </div>
 
     <div class="mb-3">
-        <a href="<?= base_url('admin/pages/services') ?>" class="btn btn-gradient px-3 py-2 rounded-pill">
+        <a href="<?= base_url('admin/pages/services') ?>" class="btn btn-shiny px-3 py-2 rounded-pill">
             <i class="fa-solid fa-angle-left"></i> Kembali
         </a>
     </div>
@@ -81,7 +81,7 @@
                 <!-- Tombol -->
                 <!-- Tombol -->
                 <div class="text-end">
-                    <button type="submit" class="btn btn-gradient px-3 py-2 rounded-pill">
+                    <button type="submit" class="btn btn-shiny px-3 py-2 rounded-pill">
                         <i class="fa-solid fa-save"></i> Simpan Perubahan
                     </button>
                 </div>
@@ -150,6 +150,42 @@
         border-color: #d4ba34ff;
         color: #d4ba34ff;
         background: rgba(13, 110, 253, 0.05);
+    }
+
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
     }
 </style>
 

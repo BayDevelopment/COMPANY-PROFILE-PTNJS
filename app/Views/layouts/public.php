@@ -12,6 +12,8 @@
     <meta property="og:url" content="https://njs.siramcilacap.org/" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="<?= base_url('assets/img/jumbo_img.jpg') ?>" /> <!-- Ganti URL logo sesuai lokasi gambar -->
+    <!-- google search -->
+    <meta name="google-site-verification" content="5s8NX3192XjUAZR9vocTNgLvAZUO07yqmSn6orRrGUc" />
 
     <!-- ✅ Robots (jika website belum live) -->
     <meta name="robots" content="index, follow" /> <!-- Ubah ke "noindex, nofollow" hanya jika sedang dalam pengembangan -->

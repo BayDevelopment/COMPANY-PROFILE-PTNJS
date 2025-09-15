@@ -42,6 +42,42 @@
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
         color: #fff;
     }
+
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
+    }
 </style>
 
 <div class="container fade-in">
@@ -51,11 +87,11 @@
             <p class="text-muted mb-0">Kelola data layanan dengan mudah</p>
         </div>
         <div>
-            <a class="btn btn-gradient text-white fw-semibold shadow-sm rounded-pill px-3 me-2"
+            <a class="btn btn-shiny text-white fw-semibold shadow-sm rounded-pill px-3 me-2"
                 href="<?= base_url('admin/pages/services/tambah') ?>" role="button">
                 <i class="fa-solid fa-file-circle-plus"></i> Tambah
             </a>
-            <a class="btn btn-dark fw-semibold shadow-sm rounded-pill px-3"
+            <a class="btn btn-shiny fw-semibold shadow-sm rounded-pill px-3"
                 href="<?= base_url('admin/pages/services') ?>" role="button">
                 <i class="fa-solid fa-repeat"></i> Reload
             </a>
@@ -138,9 +174,9 @@
                                 <p class="card-text text-truncate"><?= esc($d_services['deskripsi']) ?></p>
 
                                 <div class="d-flex justify-content-between mt-3">
-                                    <a class="btn btn-sm btn-gradient rounded-pill px-3" href="<?= base_url('admin/pages/services/edit/') . $d_services['slug_services'] ?>"><i class="fa-solid fa-pen"></i> Edit</a>
-                                    <a class="btn btn-sm btn-gradient rounded-pill px-3" href="#" onclick="confirmDeleteServices(<?= $d_services['id_services'] ?>)"><i class="fa-solid fa-trash"></i> Hapus</a>
-                                    <a class="btn btn-sm btn-gradient rounded-pill px-3" href="<?= base_url('admin/pages/services/detail/' . esc($d_services['slug_services'])) ?>"><i class="fa-solid fa-eye"></i> Detail</a>
+                                    <a class="btn btn-sm btn-shiny rounded-pill px-3" href="<?= base_url('admin/pages/services/edit/') . $d_services['slug_services'] ?>"><i class="fa-solid fa-pen"></i> Edit</a>
+                                    <a class="btn btn-sm btn-shiny rounded-pill px-3" href="#" onclick="confirmDeleteServices(<?= $d_services['id_services'] ?>)"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                    <a class="btn btn-sm btn-shiny rounded-pill px-3" href="<?= base_url('admin/pages/services/detail/' . esc($d_services['slug_services'])) ?>"><i class="fa-solid fa-eye"></i> Detail</a>
                                 </div>
                             </div>
                         </div>
