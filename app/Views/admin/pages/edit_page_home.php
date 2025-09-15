@@ -28,7 +28,7 @@
 
     <!-- Back Button -->
     <div class="mb-4">
-        <a href="<?= base_url('admin/pages/home') ?>" class="btn btn-gradient px-3 py-2 rounded-pill shadow-sm">
+        <a href="<?= base_url('admin/pages/home') ?>" class="btn btn-shiny px-3 py-2 rounded-pill shadow-sm">
             <i class="fa-solid fa-angle-left me-2"></i> Kembali
         </a>
     </div>
@@ -52,7 +52,7 @@
                             <label class="form-label fw-semibold">Upload Image About</label>
 
                             <?php if (!empty($d_f['image_about'])): ?>
-                                <div class="mb-2">
+                                <div class="mb-2" style="justify-content: center; text-align: center;">
                                     <img src="<?= base_url('assets/uploads/' . esc($d_f['image_about'])) ?>"
                                         alt="Preview" class="img-thumbnail rounded-4 shadow-sm"
                                         style="max-height: 200px; object-fit: cover;">
@@ -124,7 +124,7 @@
                             <label for="paragraft_about_<?= esc($d_f['id_home_first']) ?>">Paragraf About</label>
                         </div>
                         <div class="text-end">
-                            <button type="submit" class="btn btn-gradient px-4 py-2 rounded-pill shadow-lg">
+                            <button type="submit" class="btn btn-shiny px-4 py-2 rounded-pill shadow-lg">
                                 <i class="fa-solid fa-save me-2"></i> Simpan Perubahan
                             </button>
                         </div>
@@ -137,6 +137,42 @@
 
 <!-- Custom CSS -->
 <style>
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
+    }
+
     @keyframes fadeIn {
         from {
             opacity: 0;
@@ -198,6 +234,42 @@
     .form-select:focus {
         border-color: #d4ba34ff;
         box-shadow: 0 0 0 0.2rem rgba(212, 186, 52, .25);
+    }
+
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
     }
 </style>
 

@@ -31,6 +31,42 @@
     .fade-in {
         animation: fadeIn 0.8s ease-in-out;
     }
+
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
+    }
 </style>
 <div class="container py-4 fade-in">
     <!-- Heading -->
@@ -48,18 +84,18 @@
     <!-- Action Buttons -->
     <div class="mb-4">
         <?php if ($count_d_about < 1): ?>
-            <a href="<?= base_url('admin/pages/about/tambah') ?>" class="btn btn-gradient rounded-pill shadow-sm">
+            <a href="<?= base_url('admin/pages/about/tambah') ?>" class="btn btn-shiny rounded-pill shadow-sm">
                 <i class="fa-solid fa-circle-plus me-2"></i> Tambah
             </a>
         <?php else: ?>
             <?php foreach ($d_about as $d_link): ?>
-                <button onclick="confirmDeleteAbout(<?= $d_link['id_about'] ?>)" class="btn btn-gradient rounded-pill shadow-sm me-2">
+                <button onclick="confirmDeleteAbout(<?= $d_link['id_about'] ?>)" class="btn btn-shiny rounded-pill shadow-sm me-2">
                     <i class="fa-solid fa-circle-xmark me-2"></i> Hapus
                 </button>
-                <a href="<?= base_url('admin/pages/about/edit/' . $d_link['id_about']) ?>" class="btn btn-gradient rounded-pill shadow-sm me-2">
+                <a href="<?= base_url('admin/pages/about/edit/' . $d_link['id_about']) ?>" class="btn btn-shiny rounded-pill shadow-sm me-2">
                     <i class="fa-solid fa-pen me-2"></i> Edit
                 </a>
-                <a href="<?= base_url('admin/pages/about/visimisi') ?>" class="btn btn-gradient rounded-pill shadow-sm">
+                <a href="<?= base_url('admin/pages/about/visimisi') ?>" class="btn btn-shiny rounded-pill shadow-sm">
                     <i class="fa-solid fa-eye me-2"></i> Visi & Misi
                 </a>
             <?php endforeach; ?>

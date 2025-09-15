@@ -2,6 +2,42 @@
 
 <?= $this->section('admin_dashboard') ?>
 <style>
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
+    }
+
     .card {
         border: none;
         border-radius: 16px;
@@ -70,10 +106,10 @@
 
     <!-- Action Buttons -->
     <div class="mb-3">
-        <a class="btn btn-success me-2 shadow-sm" href="<?= base_url('admin/pages/cooperation/tambah') ?>">
+        <a class="btn btn-shiny me-2 shadow-sm" href="<?= base_url('admin/pages/cooperation/tambah') ?>">
             <i class="fa-solid fa-circle-plus"></i> Tambah
         </a>
-        <a class="btn btn-outline-secondary shadow-sm" href="<?= base_url('admin/pages/cooperation') ?>">
+        <a class="btn btn-shiny shadow-sm" href="<?= base_url('admin/pages/cooperation') ?>">
             <i class="fa-solid fa-arrows-rotate"></i> Reload
         </a>
     </div>

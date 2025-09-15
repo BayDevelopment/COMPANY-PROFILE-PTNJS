@@ -28,7 +28,7 @@
 
     <!-- Back Button -->
     <div class="mb-3">
-        <a class="btn btn-gradient rounded-pill px-4 shadow-sm"
+        <a class="btn btn-shiny rounded-pill px-4 shadow-sm"
             href="<?= base_url('admin/pages/services') ?>">
             <i class="fa-solid fa-angle-left me-1"></i> Kembali
         </a>
@@ -51,7 +51,7 @@
                     <?php $d_status = reset($d_services_model); ?>
                     <?php if (!empty($d_status)): ?>
                         <?php if ($d_status['status'] === 'baru diupload'): ?>
-                            <span class="badge rounded-pill bg-gradient px-3 py-2 mb-3"
+                            <span class="badge rounded-pill bg-shiny px-3 py-2 mb-3"
                                 style="background: linear-gradient(45deg, #007bff, #00c6ff);">
                                 <i class="fa-solid fa-clock me-1"></i> <?= $d_status['status'] ?>
                             </span>
@@ -114,6 +114,42 @@
             opacity: 1;
             transform: translateY(0);
         }
+    }
+
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
     }
 </style>
 

@@ -487,7 +487,7 @@
                             <a href="<?= base_url('/pages/about') ?>" class="btn-shiny">
                                 <i class="fa-solid fa-circle-info"></i> Selengkapnya
                             </a>
-                            <a href="<?= base_url('/contact') ?>" class="btn-ghost">
+                            <a href="<?= base_url('pages/contact') ?>" class="btn-ghost">
                                 <i class="fa-solid fa-paper-plane"></i> Hubungi Kami
                             </a>
                         </div>

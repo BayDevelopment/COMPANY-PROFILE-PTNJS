@@ -38,6 +38,42 @@
         box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
         color: #fff;
     }
+
+    .btn-shiny {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        background: linear-gradient(135deg, #fae20dff, #fae20dff);
+        color: #fff;
+        padding: .6rem 1.2rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        border: 0;
+        position: relative;
+        overflow: hidden;
+        transition: .25s ease;
+        box-shadow: 0 10px 22px rgba(253, 237, 13, 0.32);
+    }
+
+    .btn-shiny::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent);
+        transform: translateX(-120%);
+        transition: transform .6s ease;
+    }
+
+    .btn-shiny:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(253, 209, 13, 0.42);
+        color: #fff;
+    }
+
+    .btn-shiny:hover::before {
+        transform: translateX(120%);
+    }
 </style>
 <div class="container py-4 fade-in">
     <!-- Header -->
@@ -55,7 +91,7 @@
 
     <!-- Back Button -->
     <div class="mb-4">
-        <a href="<?= base_url('admin/pages/about/visimisi') ?>" class="btn btn-gradient px-3 py-2 rounded-pill shadow-sm">
+        <a href="<?= base_url('admin/pages/about/visimisi') ?>" class="btn btn-shiny px-3 py-2 rounded-pill shadow-sm">
             <i class="fa-solid fa-angle-left me-2"></i> Kembali
         </a>
     </div>
@@ -82,7 +118,7 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" class="btn btn-gradient btn-md rounded-pill px-4 shadow-sm">
+                    <button type="submit" class="btn btn-shiny btn-md rounded-pill px-4 shadow-sm">
                         <i class="fa-solid fa-save"></i> Simpan Perubahan
                     </button>
                 </div>
