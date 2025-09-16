@@ -30,7 +30,7 @@ class Home extends BaseController
         $d_services = $this->ServicesModel->limit(3)->getStatusServices();
         $d_project = $this->ProjectModel->limit(3)->findAll();
         $data = [
-            'title' => 'Welcome | PT. Najwa Jaya Sukses',
+            'title' => 'PT. Najwa Jaya Sukses',
             'page_title' => 'Home',
             'typed' => json_encode(array_column($this->typedModel->findAll(), 'paragraft_jumbo')), // Gunakan $this->typedModel
             'd_home' => $d_FirstHome,
