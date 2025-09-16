@@ -4,43 +4,70 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- ✅ Meta Description (gunakan hanya satu) -->
-    <meta name="description" content="PT. Najwa Jaya Sukses adalah perusahaan terkemuka di serang, Banten, yang bergerak di bidang jasa pekerjaan contruction, scalfollding, insulatation, Electrical Panel." />
 
-    <!-- ✅ Open Graph Meta Tags (untuk tampilan link di media sosial) -->
-    <meta property="og:title" content="PT Najwa Jaya Sukses" />
-    <meta property="og:url" content="https://njs.siramcilacap.org/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="<?= base_url('assets/img/jumbo_img.jpg') ?>" /> <!-- Ganti URL logo sesuai lokasi gambar -->
-    <!-- google search -->
-    <meta name="google-site-verification" content="5s8NX3192XjUAZR9vocTNgLvAZUO07yqmSn6orRrGUc" />
-
-    <!-- ✅ Robots (jika website belum live) -->
-    <meta name="robots" content="index, follow" /> <!-- Ubah ke "noindex, nofollow" hanya jika sedang dalam pengembangan -->
-
-    <!-- ✅ Canonical URL -->
-    <link rel="canonical" href="https://njs.siramcilacap.org//" />
-
-    <!-- ✅ Tambahan Meta untuk SEO -->
-    <meta name="keywords" content="konstruksi, mekanikal, elektrikal, kontraktor, Najwa Jaya Sukses, Bayu Albar Ladici" />
-    <meta name="author" content="Bayu Albar Ladici" />
-
+    <!-- Title & Meta Description -->
     <title><?= esc($title) ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta name="description" content="PT. Najwa Jaya Sukses adalah perusahaan kontraktor di Serang, Banten, bergerak di pekerjaan construction, scaffolding, insulation, dan Electrical Panel.">
 
-    <!-- link css -->
+    <!-- Canonical -->
+    <link rel="canonical" href="https://ptnjs.my.id/">
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="<?= esc($title) ?>">
+    <meta property="og:description" content="Kontraktor di Serang, Banten — construction, scaffolding, insulation, Electrical Panel.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ptnjs.my.id/">
+    <meta property="og:site_name" content="PT. Najwa Jaya Sukses">
+    <meta property="og:image" content="<?= base_url('assets/img/logo.png') ?>">
+    <meta property="og:image:alt" content="Logo PT. Najwa Jaya Sukses">
+    <!-- (opsional jika tahu ukuran pasti) -->
+    <!-- <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512"> -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= esc($title) ?>">
+    <meta name="twitter:description" content="Kontraktor: construction, scaffolding, insulation — Serang, Banten.">
+    <meta name="twitter:image" content="<?= base_url('assets/img/logo.png') ?>">
+
+    <!-- Google site verification -->
+    <meta name="google-site-verification" content="5s8NX3192XjUAZR9vocTNgLvAZUO07yqmSn6orRrGUc">
+
+    <!-- Author & (opsional) keywords -->
+    <meta name="author" content="Bayu Albar Ladici">
+    <meta name="keywords" content="kontraktor, construction, scaffolding, insulation, elektrikal, Serang, Banten, pt najwa jaya sukses">
+
+    <!-- Favicon (lengkap) -->
+    <link rel="icon" href="<?= base_url('favicon-32x32.png') ?>" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('favicon-32x32.png') ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('favicon-16x16.png') ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('apple-touch-icon.png') ?>">
+    <meta name="theme-color" content="#6e680fff">
+
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/css/owl.carousel.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/owl.theme.default.min.css') ?>">
 
-    <!-- icon -->
-    <link rel="icon" href="<?= base_url('assets/img/logo.png') ?>" type="image/x-icon">
-
-
-    <!-- link sweet alert  -->
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- JSON-LD Organization (untuk logo & brand) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "PT. Najwa Jaya Sukses",
+            "url": "https://ptnjs.my.id/",
+            "logo": "<?= base_url('assets/img/logo.png') ?>"
+        }
+    </script>
 </head>
+
 <style>
     /* Animasi */
     @keyframes fadeIn {
