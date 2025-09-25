@@ -293,8 +293,27 @@
                             </div>
                         </div>
 
-                        <!-- Proposal -->
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <label for="tanggal_pengajuan" class="form-label">Tanggal & Waktu Pengajuan</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-clock"></i></span>
+                                <input
+                                    type="datetime-local"
+                                    class="form-control fc_native <?= isset($errors['tanggal_pengajuan']) ? 'is-invalid' : '' ?>"
+                                    id="tanggal_pengajuan"
+                                    name="tanggal_pengajuan"
+                                    required
+                                    step="60">
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['tanggal_pengajuan']) ? $errors['tanggal_pengajuan'] : 'Tanggal & waktu wajib diisi.' ?>
+                                </div>
+                            </div>
+                            <div class="small-help mt-1">Bisa ubah sesuai kebutuhan. Default: waktu sekarang.</div>
+                        </div>
+
+
+                        <!-- dokumen pendukung -->
+                        <div class="col-md-6">
                             <label for="dokumen_pendukung" class="form-label fl_proposal">Dokumen Pendukung</label>
                             <input type="file"
                                 class="form-control fc_native <?= isset($errors['dokumen_pendukung']) ? 'is-invalid' : '' ?>"
@@ -362,6 +381,27 @@
                 if (submitBtn.dataset.originalHtml) submitBtn.innerHTML = submitBtn.dataset.originalHtml;
             }
         });
+    })();
+
+    // datetime js manual 
+    (function setDefaultTanggalPengajuan() {
+        const el = document.getElementById('tanggal_pengajuan');
+        if (!el) return;
+
+        // waktu sekarang dari browser user (cukup untuk kebanyakan kasus)
+        const now = new Date();
+
+        // bulatkan ke menit (hapus detik)
+        now.setSeconds(0, 0);
+
+        // format ke yyyy-mm-ddThh:mm (format untuk input datetime-local)
+        const pad = n => String(n).padStart(2, '0');
+        const val = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+        if (!el.value) el.value = val;
+
+        // kalau mau larang pilih waktu lampau, aktifkan baris di bawah:
+        // el.min = val;
     })();
 </script>
 

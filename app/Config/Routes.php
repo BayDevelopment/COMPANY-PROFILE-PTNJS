@@ -79,6 +79,6 @@ $routes->group('admin', ['filter' => 'loginTimeout'], function ($routes) {
     $routes->get('pages/cooperation/detail/(:num)', 'Admin::detail_page_cooperation/$1');
     $routes->get('pages/cooperation/pdf/(:num)', 'Cooperation::exportPdf/$1');
     $routes->get('pages/cooperation/edit/(:num)', 'Admin::page_edit_cooperation/$1');
-    $routes->post('pages/cooperation/edit/(:num)', 'Cooperation::edit_aksi_cooperation/$1');
+    $routes->post('pages/cooperation/edit/(:num)', 'Admin::edit_aksi_cooperation/$1');
     $routes->get('pages/cooperation/hapus/(:num)', 'Cooperation::hapus_aksi_cooperation/$1');
 });

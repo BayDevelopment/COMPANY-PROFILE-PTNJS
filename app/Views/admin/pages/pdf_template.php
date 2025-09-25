@@ -238,7 +238,7 @@
     <div class="ttd">
         <div class="box">
             <p>Mengetahui,</p>
-            <p class="jabatan">Direktur</p>
+            <p class="jabatan"><?= esc($d_cooperation['jabatan']) ?></p>
             <div class="space"></div>
             <p class="nama"><?= esc($d_cooperation['penanggung_jawab']) ?></p>
         </div>

@@ -2159,10 +2159,10 @@ class Admin extends BaseController
 
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'nama_perusahaan' => ['label' => 'Nama Perusahaan', 'rules' => 'required'],
-            'alamat_perusahaan' => ['label' => 'Alamat Perusahaan', 'rules' => 'required'],
-            'penanggung_jawab' => ['label' => 'Penanggung Jawab', 'rules' => 'required'],
-            'jabatan' => ['label' => 'Jabatan', 'rules' => 'required'],
+            'nama_perusahaan'         => ['label' => 'Nama Perusahaan', 'rules' => 'required'],
+            'alamat_perusahaan'       => ['label' => 'Alamat Perusahaan', 'rules' => 'required'],
+            'penanggung_jawab'        => ['label' => 'Penanggung Jawab', 'rules' => 'required'],
+            'jabatan'                 => ['label' => 'Jabatan', 'rules' => 'required'],
             'telepon' => [
                 'label' => 'Telepon',
                 'rules' => 'required|regex_match[/^08[0-9]{6,12}$/]|numeric',
@@ -2176,13 +2176,25 @@ class Admin extends BaseController
                 'errors' => ['is_unique' => 'Email sudah terdaftar, silakan gunakan email lain.']
             ],
             'ruang_lingkup_kerjasama' => ['label' => 'Ruang Lingkup Kerjasama', 'rules' => 'required'],
+
+            // ✅ FIX: hilangkan spasi di depan key & validasi format datetime-local
+            'tanggal_pengajuan' => [
+                'label' => 'Tanggal Pengajuan',
+                // jika CI4 kamu mendukung valid_date, gunakan baris di bawah.
+                'rules' => 'required|valid_date[Y-m-d\TH:i]',
+                'errors' => [
+                    'required'   => 'Tanggal & waktu wajib diisi.',
+                    'valid_date' => 'Format tanggal & waktu tidak valid.'
+                ],
+            ],
+
             // 1MB = 1024 KB (aturan CI4 pakai KB)
             'dokumen_pendukung' => [
                 'label' => 'Dokumen Pendukung',
                 'rules' => 'uploaded[dokumen_pendukung]|mime_in[dokumen_pendukung,application/pdf]|max_size[dokumen_pendukung,1024]',
                 'errors' => [
                     'uploaded' => 'File Dokumen Pendukung harus diunggah.',
-                    'mime_in' => 'Dokumen Pendukung harus dalam format PDF.',
+                    'mime_in'  => 'Dokumen Pendukung harus dalam format PDF.',
                     'max_size' => 'Ukuran Dokumen Pendukung tidak boleh lebih dari 1MB.',
                 ]
             ]
@@ -2198,6 +2210,17 @@ class Admin extends BaseController
 
         // Build data + upload file
         try {
+            // Ambil & konversi datetime-local: 2025-09-25T14:30 -> 2025-09-25 14:30:00
+            $rawTanggal = trim((string) $this->request->getPost('tanggal_pengajuan'));
+            $tanggal_pengajuan = date('Y-m-d H:i:s'); // default fallback: sekarang
+
+            if ($rawTanggal !== '') {
+                $dt = \DateTime::createFromFormat('Y-m-d\TH:i', $rawTanggal);
+                if ($dt instanceof \DateTime) {
+                    $tanggal_pengajuan = $dt->format('Y-m-d H:i:s');
+                }
+            }
+
             $data = [
                 'nama_perusahaan'         => trim((string)$this->request->getPost('nama_perusahaan')),
                 'alamat_perusahaan'       => trim((string)$this->request->getPost('alamat_perusahaan')),
@@ -2206,8 +2229,8 @@ class Admin extends BaseController
                 'telepon'                 => trim((string)$this->request->getPost('telepon')),
                 'email'                   => trim((string)$this->request->getPost('email')),
                 'ruang_lingkup_kerjasama' => trim((string)$this->request->getPost('ruang_lingkup_kerjasama')),
-                'dokumen_pendukung'                => $this->uploadFile('dokumen_pendukung'),
-                'tanggal_pengajuan'       => date('Y-m-d H:i:s'),
+                'dokumen_pendukung'       => $this->uploadFile('dokumen_pendukung'),
+                'tanggal_pengajuan'       => $tanggal_pengajuan,     // ✅ pakai input user (atau fallback now)
                 'status_pengajuan'        => 'Menunggu persetujuan',
             ];
         } catch (\Throwable $e) {
@@ -2236,6 +2259,109 @@ class Admin extends BaseController
             ->to(site_url('admin/pages/cooperation'))
             ->with('sweet_success', 'Pengajuan Kerjasama Berhasil Dikirim.');
     }
+
+
+
+
+    public function edit_aksi_cooperation($id)
+    {
+        date_default_timezone_set('Asia/Jakarta');
+
+        // Ambil data lama untuk fallback
+        $row = $this->CooperationModel->asArray()->find($id);
+        if (!$row) {
+            return redirect()->to('admin/pages/cooperation')->with('sweet_error', 'Data tidak ditemukan.');
+        }
+
+        $validation = \Config\Services::validation();
+
+        $rules = [
+            'nama_perusahaan' => ['label' => 'Nama Perusahaan', 'rules' => 'required'],
+            'alamat_perusahaan' => ['label' => 'Alamat Perusahaan', 'rules' => 'required'],
+            'penanggung_jawab' => ['label' => 'Penanggung Jawab', 'rules' => 'required'],
+            'jabatan' => ['label' => 'Jabatan', 'rules' => 'required'],
+            'telepon' => [
+                'label' => 'Telepon',
+                'rules' => 'required|regex_match[/^08[0-9]{6,12}$/]|numeric',
+                'errors' => [
+                    'required' => 'Nomor telepon harus diisi.',
+                    'regex_match' => 'Nomor telepon harus dimulai dengan 08 dan memiliki 8 hingga 12 digit angka.',
+                    'numeric' => 'Nomor telepon hanya boleh berisi angka.',
+                ],
+            ],
+            'email' => ['label' => 'Email', 'rules' => 'required|valid_email'],
+            'ruang_lingkup_kerjasama' => ['label' => 'Ruang Lingkup Kerjasama', 'rules' => 'required'],
+            'tanggal_pengajuan' => ['label' => 'Tanggal Pengajuan', 'rules' => 'required'],
+
+            // ✅ VALIDASI STATUS + batasi ke opsi di view
+            'status_pengajuan' => [
+                'label'  => 'Status Pengajuan',
+                'rules'  => 'required|in_list[Menunggu persetujuan,Diproses,Diterima,Dibatalkan]',
+                'errors' => [
+                    'required' => 'Status harus dipilih.',
+                    'in_list'  => 'Status tidak valid.',
+                ],
+            ],
+        ];
+
+        // jika dibatalkan, wajib alasan
+        $statusPost = $this->request->getPost('status_pengajuan');
+        if ($statusPost === 'Dibatalkan') {
+            $rules['alasan'] = [
+                'label' => 'Alasan',
+                'rules' => 'required|min_length[5]',
+                'errors' => [
+                    'required' => 'Alasan pembatalan harus diisi.',
+                    'min_length' => 'Alasan minimal 5 karakter.'
+                ],
+            ];
+        }
+
+        $validation->setRules($rules);
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
+
+        // ---- parse tanggal (YYYY-MM-DDTHH:MM atau :SS) ----
+        $rawTanggal = trim((string) $this->request->getPost('tanggal_pengajuan'));
+        $tanggal_pengajuan = $row['tanggal_pengajuan'] ?? date('Y-m-d H:i:s');
+        if ($rawTanggal !== '') {
+            $dt = \DateTime::createFromFormat('Y-m-d\TH:i', $rawTanggal)
+                ?: \DateTime::createFromFormat('Y-m-d\TH:i:s', $rawTanggal);
+            if ($dt) {
+                $tanggal_pengajuan = $dt->format('Y-m-d H:i:s');
+            } elseif (($ts = strtotime($rawTanggal))) {
+                $tanggal_pengajuan = date('Y-m-d H:i:s', $ts);
+            }
+        }
+
+        // ✅ fallback: kalau POST status kosong/null, pakai status lama (hindari menimpa jadi '')
+        $status = $statusPost !== null && $statusPost !== '' ? $statusPost : ($row['status_pengajuan'] ?? 'Menunggu persetujuan');
+
+        $data = [
+            'nama_perusahaan'         => $this->request->getPost('nama_perusahaan'),
+            'alamat_perusahaan'       => $this->request->getPost('alamat_perusahaan'),
+            'penanggung_jawab'        => $this->request->getPost('penanggung_jawab'),
+            'jabatan'                 => $this->request->getPost('jabatan'),
+            'telepon'                 => $this->request->getPost('telepon'),
+            'email'                   => $this->request->getPost('email'),
+            'ruang_lingkup_kerjasama' => $this->request->getPost('ruang_lingkup_kerjasama'),
+            'status_pengajuan'        => $status,
+            'alasan'                  => ($status === 'Dibatalkan') ? $this->request->getPost('alasan') : null,
+            'tanggal_pengajuan'       => $tanggal_pengajuan,
+            'updated_at'              => date('Y-m-d H:i:s'),
+        ];
+
+        if ($this->CooperationModel->update($id, $data) === false) {
+            $err = $this->CooperationModel->errors() ?: $this->CooperationModel->db->error();
+            return redirect()->back()->withInput()->with('errors', $err)->with('sweet_error', 'Gagal menyimpan.');
+        }
+
+        return redirect()->to('admin/pages/cooperation')->with('sweet_success', 'Data Kerjasama berhasil diperbarui.');
+    }
+
+
+
 
     private function uploadFile(string $fieldName): ?string
     {

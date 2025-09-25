@@ -131,37 +131,56 @@
                                 <span class="text-danger"><?= isset($validation) ? esc($validation->getError('alamat_perusahaan')) : '' ?></span>
                             </span>
                         </div>
-                        <div class="baris-info">
-                            <span class="label">Tanggal Pengajuan</span>
+
+                        <div class="baris-info d-flex align-items-center gap-2">
+                            <label for="tanggal_pengajuan" class="label mb-0">Tanggal Pengajuan</label>
                             <span class="titik-dua">:</span>
-                            <span class="isi"><?= esc(formatTanggalLengkapIndonesia($d_cooperation['tanggal_pengajuan'])) ?></span>
+                            <input
+                                type="datetime-local"
+                                id="tanggal_pengajuan"
+                                name="tanggal_pengajuan"
+                                class="form-control form-control-sm fc_native <?= isset($errors['tanggal_pengajuan']) ? 'is-invalid' : '' ?>"
+                                value="<?= esc($d_cooperation['tanggal_pengajuan']) ?>"
+                                step="60"
+                                required
+                                style="max-width: 240px;">
                         </div>
+                        <?php if (isset($errors['tanggal_pengajuan'])): ?>
+                            <div class="invalid-feedback d-block"><?= esc($errors['tanggal_pengajuan']) ?></div>
+                        <?php endif; ?>
+
+                        <?php
+                        // value = sesuai ENUM DB, label = teks tampilan
+                        $statusList = [
+                            'Menunggu persetujuan' => 'Menunggu persetujuan',
+                            'Diproses'             => 'Diproses',
+                            'Diterima'             => 'Diterima',  // 👈 value Diterima, label Disetujui
+                            'Dibatalkan'           => 'Dibatalkan',
+                        ];
+
+                        $currentStatus = $d_cooperation['status_pengajuan'] ?? '';
+                        $sel = old('status_pengajuan', $currentStatus);
+                        ?>
                         <div class="baris-info">
                             <span class="label">Status Pengajuan</span>
                             <span class="titik-dua">:</span>
                             <span class="isi">
-                                <?php
-                                $currentStatus = $d_cooperation['status_pengajuan'];
-
-                                $statusList = [
-                                    'Menunggu persetujuan' => 'Menunggu persetujuan',
-                                    'Diproses'              => 'Diproses',
-                                    'Disetujui'             => 'Disetujui',
-                                    'Dibatalkan'            => 'Dibatalkan',
-                                ];
-                                ?>
-
-                                <select class="form-select fc_native" name="status_pengajuan" id="status_pengajuan" required>
-                                    <option value="" disabled>-- PILIH STATUS --</option>
-                                    <?php foreach ($statusList as $value => $label) : ?>
-                                        <option value="<?= $value ?>" <?= ($value == $currentStatus) ? 'selected' : '' ?>>
-                                            <?= $label ?>
+                                <select class="form-select fc_native <?= isset($errors['status_pengajuan']) ? 'is-invalid' : '' ?>"
+                                    name="status_pengajuan" id="status_pengajuan" required>
+                                    <option value="" disabled <?= $sel === '' ? 'selected' : '' ?>>-- PILIH STATUS --</option>
+                                    <?php foreach ($statusList as $value => $label): ?>
+                                        <option value="<?= esc($value) ?>" <?= ($sel === $value) ? 'selected' : '' ?>>
+                                            <?= esc($label) ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
-
+                                <?php if (isset($errors['status_pengajuan'])): ?>
+                                    <div class="invalid-feedback d-block"><?= esc($errors['status_pengajuan']) ?></div>
+                                <?php endif; ?>
                             </span>
                         </div>
+
+
                         <!-- Input alasan -->
                         <div class="baris-info mt-2" id="alasan_container" style="display: none;">
                             <span class="label">Alasan</span>
@@ -222,5 +241,73 @@
         // jalankan saat status berubah
         statusSelect.addEventListener("change", toggleAlasan);
     });
+
+
+    (function() {
+        const input = document.getElementById('tanggal_pengajuan');
+        if (!input) return;
+
+        // format helper: 2 digit
+        const pad = n => String(n).padStart(2, '0');
+
+        // waktu "sekarang" di zona Asia/Jakarta → "YYYY-MM-DDTHH:MM"
+        function nowInJakarta() {
+            const parts = new Intl.DateTimeFormat('en-CA', {
+                timeZone: 'Asia/Jakarta',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            }).formatToParts(new Date());
+            const get = t => parts.find(p => p.type === t).value;
+            return `${get('year')}-${get('month')}-${get('day')}T${get('hour')}:${get('minute')}`;
+        }
+
+        // isi default jika kosong
+        if (!input.value) {
+            input.value = nowInJakarta();
+        }
+
+        // buang detik kalau ada (beberapa browser bisa ikut nyimpen detik)
+        function normalizeSeconds() {
+            if (input.value && input.value.length > 16) {
+                input.value = input.value.slice(0, 16);
+            }
+        }
+        input.addEventListener('change', normalizeSeconds);
+        input.addEventListener('input', normalizeSeconds);
+        normalizeSeconds();
+
+        // (opsional) batasi minimal waktu ke "sekarang"
+        // input.min = nowInJakarta();
+
+        // (opsional) preview tanggal Indonesia
+        const preview = document.getElementById('tanggal_pengajuan_preview');
+
+        function updatePreview() {
+            if (!preview || !input.value) return;
+            // tampilkan cantik: Kamis, 26 September 2025 14.30
+            const [d, t] = input.value.split('T');
+            const [y, m, day] = d.split('-').map(Number);
+            const [hh, mm] = t.split(':').map(Number);
+            const formatter = new Intl.DateTimeFormat('id-ID', {
+                timeZone: 'Asia/Jakarta',
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            // Buat Date dari string (detik = 00); hanya untuk tampilan
+            const jsDate = new Date(`${y}-${pad(m)}-${pad(day)}T${pad(hh)}:${pad(mm)}:00`);
+            preview.textContent = formatter.format(jsDate);
+        }
+        input.addEventListener('input', updatePreview);
+        updatePreview();
+
+    })();
 </script>
 <?php $this->endSection(); ?>

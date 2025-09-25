@@ -107,7 +107,7 @@
             <div class="ttd-container">
                 <div class="ttd-box">
                     <p>Mengetahui,</p>
-                    <p class="jabatan">Direktur</p>
+                    <p class="jabatan"><?= esc($d_cooperation['jabatan']) ?></p>
                     <div class="ttd-space"></div>
                     <p class="nama-ttd"><?= esc($d_cooperation['penanggung_jawab']) ?></p>
                 </div>
