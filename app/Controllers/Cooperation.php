@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\AboutModel;
+use App\Models\DirekturModel;
 use App\Models\ModelCooperation;
 use CodeIgniter\HTTP\ResponseInterface;
 use Dompdf\Dompdf;
@@ -13,22 +14,30 @@ class Cooperation extends BaseController
 {
     protected $AboutModel;
     protected $ModelCooperation;
+    protected $ModelDirektur;
 
     public function __construct()
     {
         $this->AboutModel = new AboutModel();
         $this->ModelCooperation = new ModelCooperation();
+        $this->ModelDirektur = new DirekturModel();
     }
 
     public function index()
     {
+        $m_direktur = $this->ModelDirektur
+            ->select('no_hp')
+            ->orderBy('created_at', 'DESC')   // pakai created_at terbaru
+            ->first();
+
         $data_about = $this->AboutModel->findAll();
         $data = [
             'title' => 'Cooperation | PT. Najwa Jaya Sukses',
             'page_title' => 'Cooperation',
             'translite' => 'Kerjasama',
             'typed' => "",
-            'd_about' => $data_about
+            'd_about' => $data_about,
+            'd_direktur' => $m_direktur
         ];
 
         return view('/pages/cooperation', $data);
@@ -96,42 +105,15 @@ class Cooperation extends BaseController
                     'required' => 'Ruang lingkup kerja sama harus diisi.',
                 ],
             ],
-            'proposal' => [
+            'dokumen_pendukung' => [
                 'label' => 'Proposal',
-                'rules' => 'uploaded[proposal]|mime_in[proposal,application/pdf]|max_size[proposal,1024]',
+                'rules' => 'uploaded[dokumen_pendukung]|mime_in[dokumen_pendukung,application/pdf]|max_size[dokumen_pendukung,1024]',
                 'errors' => [
-                    'uploaded' => 'File proposal harus diunggah.',
-                    'mime_in' => 'Proposal harus dalam format PDF.',
-                    'max_size' => 'Ukuran proposal tidak boleh lebih dari 1MB.',
+                    'uploaded' => 'File dokumen harus diunggah.',
+                    'mime_in' => 'dokumen harus dalam format PDF.',
+                    'max_size' => 'Ukuran dokumen tidak boleh lebih dari 1MB.',
                 ],
-            ],
-            'profil_perusahaan' => [
-                'label' => 'Profil Perusahaan',
-                'rules' => 'uploaded[profil_perusahaan]|mime_in[profil_perusahaan,application/pdf,image/jpeg,image/png]|max_size[profil_perusahaan,1024]',
-                'errors' => [
-                    'uploaded' => 'File profil perusahaan harus diunggah.',
-                    'mime_in' => 'Profil perusahaan harus dalam format PDF, JPG, atau PNG.',
-                    'max_size' => 'Ukuran profil perusahaan tidak boleh lebih dari 1MB.',
-                ],
-            ],
-            'dokumen_npwp' => [
-                'label' => 'Dokumen NPWP',
-                'rules' => 'uploaded[dokumen_npwp]|mime_in[dokumen_npwp,application/pdf,image/jpeg,image/png]|max_size[dokumen_npwp,1024]',
-                'errors' => [
-                    'uploaded' => 'Dokumen NPWP harus diunggah.',
-                    'mime_in' => 'Dokumen NPWP harus dalam format PDF, JPG, atau PNG.',
-                    'max_size' => 'Ukuran dokumen NPWP tidak boleh lebih dari 1MB.',
-                ],
-            ],
-            'surat_pernyataan' => [
-                'label' => 'Surat Pernyataan',
-                'rules' => 'uploaded[surat_pernyataan]|mime_in[surat_pernyataan,application/pdf]|max_size[surat_pernyataan,1024]',
-                'errors' => [
-                    'uploaded' => 'Surat pernyataan harus diunggah.',
-                    'mime_in' => 'Surat pernyataan harus dalam format PDF.',
-                    'max_size' => 'Ukuran surat pernyataan tidak boleh lebih dari 1MB.',
-                ],
-            ],
+            ]
         ]);
 
 
@@ -142,6 +124,17 @@ class Cooperation extends BaseController
 
         $model = $this->ModelCooperation;
 
+        // === FIX: Ambil SATU nomor direktur terbaru & alias ke 'telepon' ===
+        $direktur = $this->ModelDirektur
+            ->select('no_hp AS telepon, created_at')
+            ->orderBy('created_at', 'DESC')
+            ->first();
+
+        if (!$direktur || empty($direktur['telepon'])) {
+            return redirect()->to('/pages/cooperation')
+                ->with('sweet_warning', 'No telepon direktur belum disetting');
+        }
+
         // Simpan data jika validasi berhasil
         $data = [
             'nama_perusahaan' => $this->request->getPost('nama_perusahaan'),
@@ -151,10 +144,7 @@ class Cooperation extends BaseController
             'telepon' => $this->request->getPost('telepon'),
             'email' => $this->request->getPost('email'),
             'ruang_lingkup_kerjasama' => $this->request->getPost('ruang_lingkup_kerjasama'),
-            'proposal' => $this->uploadFile('proposal'),
-            'profil_perusahaan' => $this->uploadFile('profil_perusahaan'),
-            'dokumen_npwp' => $this->uploadFile('dokumen_npwp'),
-            'surat_pernyataan' => $this->uploadFile('surat_pernyataan'),
+            'dokumen_pendukung' => $this->uploadFile('dokumen_pendukung'),
             'tanggal_pengajuan' => date('Y-m-d H:i:s'),
             'status_pengajuan' => "Menunggu persetujuan",
         ];
@@ -162,10 +152,16 @@ class Cooperation extends BaseController
         // Simpan ke database
         $model->insert($data);
 
-        // Format nomor telepon klien agar sesuai dengan format internasional (hapus nol di depan dan tambahkan kode negara)
-        $client_wa = preg_replace('/^0/', '62', $data['telepon']);
-
-        // Pesan untuk Klien
+        // === FIX: Normalisasi nomor direktur ke format wa.me (internasional tanpa '+')
+        $telepon_direktur = $direktur['telepon'];
+        $digits = preg_replace('/\D+/', '', $telepon_direktur); // buang non-digit
+        if (strpos($digits, '62') === 0) {
+            $client_wa = $digits;
+        } elseif (strpos($digits, '0') === 0) {
+            $client_wa = '62' . substr($digits, 1);
+        } else {
+            $client_wa = '62' . $digits;
+        }
 
         // Format tanggal pengajuan
         $tanggal_pengajuan = formatTanggalIndonesia(date('d-m-Y H:i'));
@@ -184,7 +180,6 @@ class Cooperation extends BaseController
                 "PT. Najwa Jaya Sukses"
         );
 
-
         // URL API WhatsApp (langsung kirim pesan)
         $client_whatsapp_url = "https://wa.me/$client_wa?text=$client_message&app_absent=0";
 
@@ -193,6 +188,7 @@ class Cooperation extends BaseController
 
         return redirect()->to('/pages/cooperation')->with('sweet_success', 'Pengajuan Kerjasama Berhasil Dikirim.');
     }
+
 
     private function uploadFile($fieldName)
     {
@@ -213,10 +209,7 @@ class Cooperation extends BaseController
 
             // Tentukan whitelist ekstensi
             $allowedTypes = [
-                'proposal'         => ['pdf'],
-                'profil_perusahaan' => ['pdf', 'jpg', 'jpeg', 'png'],
-                'dokumen_npwp'     => ['pdf', 'jpg', 'jpeg', 'png'],
-                'surat_pernyataan' => ['pdf'],
+                'dokumen_pendukung'         => ['pdf'],
             ];
 
             if (!in_array($ext, $allowedTypes[$fieldName] ?? [])) {
@@ -226,9 +219,6 @@ class Cooperation extends BaseController
             // Cek MIME juga untuk double proteksi
             $allowedMimes = [
                 'pdf'  => 'application/pdf',
-                'jpg'  => 'image/jpeg',
-                'jpeg' => 'image/jpeg',
-                'png'  => 'image/png',
             ];
 
             if (isset($allowedMimes[$ext]) && strpos($mime, $allowedMimes[$ext]) === false) {

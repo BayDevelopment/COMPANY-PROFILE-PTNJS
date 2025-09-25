@@ -41,6 +41,7 @@
     <meta name="keywords" content="kontraktor, construction, scaffolding, insulation, elektrikal, Serang, Banten, pt najwa jaya sukses">
 
     <!-- Favicon (lengkap) -->
+    <link href="<?= base_url('assets/img/logo.png') ?>" rel="icon" />
     <link rel="icon" href="<?= base_url('favicon-32x32.png') ?>" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('favicon-32x32.png') ?>">
     <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('favicon-16x16.png') ?>">
@@ -442,6 +443,19 @@
                                     Jl. Penggoreng, RT./RW 006/002, Mangunreja, Kec. Puloampel, Kabupaten Serang, Banten 42455
                                 </a>
                             </li>
+                            <li class="native_location mb-3">
+                                <?php if (!empty($d_direktur)): ?>
+                                    <a href="https://wa.me/<?= esc($d_direktur['no_hp']) ?>" target="_blank">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                        WhatsApp
+                                    </a>
+                                <?php else: ?>
+                                    <a href="https://wa.link/k7arb5" target="_blank">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                        WhatsApp
+                                    </a>
+                                <?php endif; ?>
+                            </li>
                         </ul>
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3968.7033449395067!2d106.06601767402051!3d-5.897230158047249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4195d2f0d0deb7%3A0x7d4654a95ed4aede!2sPT.%20NAJWA%20JAYA%20SUKSES!5e0!3m2!1sid!2sid!4v1737193284375!5m2!1sid!2sid"
@@ -460,6 +474,9 @@
             </div>
         </section>
     </main>
+
+    <!-- partikel -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="<?= base_url('/assets/js/typing.js') ?>"></script>

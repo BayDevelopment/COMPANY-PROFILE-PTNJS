@@ -2177,27 +2177,15 @@ class Admin extends BaseController
             ],
             'ruang_lingkup_kerjasama' => ['label' => 'Ruang Lingkup Kerjasama', 'rules' => 'required'],
             // 1MB = 1024 KB (aturan CI4 pakai KB)
-            'proposal' => [
-                'label' => 'Proposal',
-                'rules' => 'uploaded[proposal]|mime_in[proposal,application/pdf]|max_size[proposal,1024]',
+            'dokumen_pendukung' => [
+                'label' => 'Dokumen Pendukung',
+                'rules' => 'uploaded[dokumen_pendukung]|mime_in[dokumen_pendukung,application/pdf]|max_size[dokumen_pendukung,1024]',
                 'errors' => [
-                    'uploaded' => 'File proposal harus diunggah.',
-                    'mime_in' => 'Proposal harus dalam format PDF.',
-                    'max_size' => 'Ukuran proposal tidak boleh lebih dari 1MB.',
+                    'uploaded' => 'File Dokumen Pendukung harus diunggah.',
+                    'mime_in' => 'Dokumen Pendukung harus dalam format PDF.',
+                    'max_size' => 'Ukuran Dokumen Pendukung tidak boleh lebih dari 1MB.',
                 ]
-            ],
-            'profil_perusahaan' => [
-                'label' => 'Profil Perusahaan',
-                'rules' => 'uploaded[profil_perusahaan]|mime_in[profil_perusahaan,application/pdf,image/jpeg,image/png]|max_size[profil_perusahaan,1024]',
-            ],
-            'dokumen_npwp' => [
-                'label' => 'Dokumen NPWP',
-                'rules' => 'uploaded[dokumen_npwp]|mime_in[dokumen_npwp,application/pdf,image/jpeg,image/png]|max_size[dokumen_npwp,1024]',
-            ],
-            'surat_pernyataan' => [
-                'label' => 'Surat Pernyataan',
-                'rules' => 'uploaded[surat_pernyataan]|mime_in[surat_pernyataan,application/pdf]|max_size[surat_pernyataan,1024]',
-            ],
+            ]
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
@@ -2218,10 +2206,7 @@ class Admin extends BaseController
                 'telepon'                 => trim((string)$this->request->getPost('telepon')),
                 'email'                   => trim((string)$this->request->getPost('email')),
                 'ruang_lingkup_kerjasama' => trim((string)$this->request->getPost('ruang_lingkup_kerjasama')),
-                'proposal'                => $this->uploadFile('proposal'),
-                'profil_perusahaan'       => $this->uploadFile('profil_perusahaan'),
-                'dokumen_npwp'            => $this->uploadFile('dokumen_npwp'),
-                'surat_pernyataan'        => $this->uploadFile('surat_pernyataan'),
+                'dokumen_pendukung'                => $this->uploadFile('dokumen_pendukung'),
                 'tanggal_pengajuan'       => date('Y-m-d H:i:s'),
                 'status_pengajuan'        => 'Menunggu persetujuan',
             ];
@@ -2282,10 +2267,7 @@ class Admin extends BaseController
         }
 
         $allowedTypes = [
-            'proposal'           => ['pdf'],
-            'profil_perusahaan'  => ['pdf', 'jpg', 'jpeg', 'png'],
-            'dokumen_npwp'       => ['pdf', 'jpg', 'jpeg', 'png'],
-            'surat_pernyataan'   => ['pdf'],
+            'dokumen_pendukung'           => ['pdf'],
         ];
         if (!in_array($ext, $allowedTypes[$fieldName] ?? [], true)) {
             throw new \RuntimeException("File {$fieldName} tidak valid. Hanya boleh: " . implode(', ', $allowedTypes[$fieldName] ?? []));
@@ -2293,9 +2275,6 @@ class Admin extends BaseController
 
         $allowedMimes = [
             'pdf'  => 'application/pdf',
-            'jpg'  => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'png'  => 'image/png',
         ];
         if (isset($allowedMimes[$ext]) && strpos($mime, $allowedMimes[$ext]) === false) {
             throw new \RuntimeException("MIME file {$fieldName} tidak sesuai.");

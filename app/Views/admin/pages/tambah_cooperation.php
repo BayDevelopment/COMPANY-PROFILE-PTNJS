@@ -294,59 +294,23 @@
                         </div>
 
                         <!-- Proposal -->
-                        <div class="col-md-6">
-                            <label for="proposal" class="form-label fl_proposal">Proposal</label>
+                        <div class="col-md-12">
+                            <label for="dokumen_pendukung" class="form-label fl_proposal">Dokumen Pendukung</label>
                             <input type="file"
-                                class="form-control fc_native <?= isset($errors['proposal']) ? 'is-invalid' : '' ?>"
-                                name="proposal" id="proposal" accept=".pdf" required>
+                                class="form-control fc_native <?= isset($errors['dokumen_pendukung']) ? 'is-invalid' : '' ?>"
+                                name="dokumen_pendukung" id="dokumen_pendukung" accept=".pdf" required>
                             <div class="invalid-feedback">
-                                <?= isset($errors['proposal']) ? $errors['proposal'] : 'Proposal wajib diunggah (PDF).' ?>
-                            </div>
-                            <div class="upload-note mt-1">Format: PDF • Maksimal <strong>1MB</strong>.</div>
-                        </div>
-
-                        <!-- Profil Perusahaan -->
-                        <div class="col-md-6">
-                            <label for="profil_perusahaan" class="form-label fl_perusahaan">Profil Perusahaan</label>
-                            <input type="file"
-                                class="form-control fc_native <?= isset($errors['profil_perusahaan']) ? 'is-invalid' : '' ?>"
-                                name="profil_perusahaan" id="profil_perusahaan" accept=".pdf,.jpg,.jpeg,.png" required>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['profil_perusahaan']) ? $errors['profil_perusahaan'] : 'Format harus PDF/JPG/PNG.' ?>
-                            </div>
-                            <div class="upload-note mt-1">Format: PDF, JPG, PNG • Maksimal <strong>1MB</strong>.</div>
-                        </div>
-
-                        <!-- Dokumen NPWP -->
-                        <div class="col-md-6">
-                            <label for="dokumen_npwp" class="form-label fl_dnpwp">Dokumen NPWP</label>
-                            <input type="file"
-                                class="form-control fc_native <?= isset($errors['dokumen_npwp']) ? 'is-invalid' : '' ?>"
-                                name="dokumen_npwp" id="dokumen_npwp" accept=".pdf,.jpg,.jpeg,.png" required>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['dokumen_npwp']) ? $errors['dokumen_npwp'] : 'Format harus PDF/JPG/PNG.' ?>
-                            </div>
-                            <div class="upload-note mt-1">Format: PDF, JPG, PNG • Maksimal <strong>1MB</strong>.</div>
-                        </div>
-
-                        <!-- Surat Pernyataan -->
-                        <div class="col-md-6">
-                            <label for="surat_pernyataan" class="form-label fl_sp">Surat Pernyataan</label>
-                            <input type="file"
-                                class="form-control fc_native <?= isset($errors['surat_pernyataan']) ? 'is-invalid' : '' ?>"
-                                name="surat_pernyataan" id="surat_pernyataan" accept=".pdf" required>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['surat_pernyataan']) ? $errors['surat_pernyataan'] : 'Format harus PDF.' ?>
+                                <?= isset($errors['dokumen_pendukung']) ? $errors['dokumen_pendukung'] : 'Dokumen Pendukung wajib diunggah (PDF).' ?>
                             </div>
                             <div class="upload-note mt-1">Format: PDF • Maksimal <strong>1MB</strong>.</div>
                         </div>
                     </div>
 
-                    <div class="mt-3 btn-block">
-                        <button class="btn btn-warning btn-sm text-white" type="submit">
+                    <div class="mt-3 d-grid gap-2">
+                        <button class="btn btn-warning btn-sm text-white rounded-pill py-2" type="submit">
                             <i class="fa-solid fa-file-arrow-up me-1"></i> Up Kerjasama
                         </button>
-                        <button type="reset" class="btn btn-outline-secondary btn-sm">
+                        <button type="reset" class="btn btn-outline-secondary btn-sm rounded-pill py-2">
                             <i class="fa-solid fa-rotate-left me-1"></i> Reset
                         </button>
                     </div>

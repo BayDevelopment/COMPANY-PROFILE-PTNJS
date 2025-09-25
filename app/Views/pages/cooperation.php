@@ -1064,7 +1064,38 @@
             justify-content: center;
         }
     }
+
+    /* bikin kanvas partikel full-screen di belakang konten */
+    #particles-bg {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100dvh;
+        /* lebih stabil di mobile */
+        z-index: 0;
+        pointer-events: none;
+        /* klik tetap tembus ke form */
+    }
+
+    /* pastikan konten berada di atas kanvas partikel */
+    .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* overlay loading tetap paling atas */
+    #submitOverlay.submit-overlay {
+        z-index: 9999;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #particles-bg {
+            display: none;
+        }
+    }
 </style>
+<!-- Particle background -->
+<div id="particles-bg" aria-hidden="true"></div>
 
 <div class="container">
     <!-- Overlay Loading -->
@@ -1098,230 +1129,361 @@
         </div>
 
         <div class="cover_form_cooperation">
-            <form action="<?= site_url('/pages/cooperation') ?>" method="post" enctype="multipart/form-data" novalidate>
-                <?= csrf_field() ?>
-                <?php $errors = session()->get('errors') ?? []; ?>
+            <?php if (! empty($d_direktur)): ?>
+                <form action="<?= site_url('/pages/cooperation') ?>" method="post" enctype="multipart/form-data" novalidate>
+                    <?= csrf_field() ?>
+                    <?php $errors = session()->get('errors') ?? []; ?>
 
-                <div class="row g-3">
-                    <!-- Nama Perusahaan -->
-                    <div class="col-md-6">
-                        <label for="nama_perusahaan" class="form-label">Nama perusahaan</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-building"></i></span>
+                    <div class="row g-3">
+                        <!-- Nama Perusahaan -->
+                        <div class="col-md-6">
+                            <label for="nama_perusahaan" class="form-label">Nama perusahaan</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-building"></i></span>
+                                <input
+                                    type="text"
+                                    class="form-control fc_native <?= isset($errors['nama_perusahaan']) ? 'is-invalid' : '' ?>"
+                                    id="nama_perusahaan"
+                                    name="nama_perusahaan"
+                                    placeholder="Masukan nama perusahaan"
+                                    value="<?= old('nama_perusahaan') ?>"
+                                    required>
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['nama_perusahaan']) ? $errors['nama_perusahaan'] : 'Nama perusahaan wajib diisi.' ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Penanggung Jawab -->
+                        <div class="col-md-6">
+                            <label for="penanggung_jawab" class="form-label">Penanggung jawab</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
+                                <input
+                                    type="text"
+                                    class="form-control fc_native <?= isset($errors['penanggung_jawab']) ? 'is-invalid' : '' ?>"
+                                    id="penanggung_jawab"
+                                    name="penanggung_jawab"
+                                    placeholder="Masukan nama penanggung jawab"
+                                    value="<?= old('penanggung_jawab') ?>"
+                                    required>
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['penanggung_jawab']) ? $errors['penanggung_jawab'] : 'Penanggung jawab wajib diisi.' ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alamat Perusahaan -->
+                        <div class="col-12">
+                            <label for="alamat_perusahaan" class="form-label">Alamat perusahaan</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                                <textarea
+                                    class="form-control fc_native <?= isset($errors['alamat_perusahaan']) ? 'is-invalid' : '' ?>"
+                                    id="alamat_perusahaan"
+                                    name="alamat_perusahaan"
+                                    placeholder="Masukan alamat perusahaan"
+                                    rows="3"
+                                    required><?= old('alamat_perusahaan') ?></textarea>
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['alamat_perusahaan']) ? $errors['alamat_perusahaan'] : 'Alamat perusahaan wajib diisi.' ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Jabatan -->
+                        <div class="col-md-6">
+                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-id-badge"></i></span>
+                                <input
+                                    type="text"
+                                    class="form-control fc_native <?= isset($errors['jabatan']) ? 'is-invalid' : '' ?>"
+                                    id="jabatan"
+                                    name="jabatan"
+                                    placeholder="Masukan jabatan anda disini"
+                                    value="<?= old('jabatan') ?>"
+                                    required>
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['jabatan']) ? $errors['jabatan'] : 'Jabatan wajib diisi.' ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Telepon -->
+                        <div class="col-md-6">
+                            <label for="telepon" class="form-label">Telepon</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                <input
+                                    type="text"
+                                    class="form-control fc_native <?= isset($errors['telepon']) ? 'is-invalid' : '' ?>"
+                                    id="telepon"
+                                    name="telepon"
+                                    placeholder="081212341234"
+                                    value="<?= old('telepon') ?>"
+                                    required>
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['telepon']) ? $errors['telepon'] : 'Nomor telepon wajib diisi.' ?>
+                                </div>
+                            </div>
+                            <div class="small-help mt-1">Gunakan format Indonesia (contoh: 0812xxxxxxx).</div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                <input
+                                    type="email"
+                                    class="form-control fc_native <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
+                                    id="email"
+                                    name="email"
+                                    placeholder="example@gmail.com"
+                                    value="<?= old('email') ?>"
+                                    required
+                                    aria-describedby="emailHelp">
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['email']) ? $errors['email'] : 'Email wajib diisi & harus valid.' ?>
+                                </div>
+                            </div>
+                            <div id="emailHelp" class="form-text small-help">Kami tidak akan pernah membagikan email Anda kepada orang lain.</div>
+                        </div>
+
+                        <!-- Kerjasama -->
+                        <div class="col-md-6">
+                            <label for="ruang_lingkup_kerjasama" class="form-label">Kerjasama</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-handshake"></i></span>
+                                <select
+                                    class="form-select fc_native <?= isset($errors['ruang_lingkup_kerjasama']) ? 'is-invalid' : '' ?>"
+                                    id="ruang_lingkup_kerjasama"
+                                    name="ruang_lingkup_kerjasama"
+                                    required>
+                                    <option selected value="">-- PILIH KERJASAMA --</option>
+                                    <option value="Construction" <?= old('ruang_lingkup_kerjasama') == 'Construction' ? 'selected' : '' ?>>Construction</option>
+                                    <option value="Electrical" <?= old('ruang_lingkup_kerjasama') == 'Electrical'   ? 'selected' : '' ?>>Electrical</option>
+                                    <option value="Mechanical" <?= old('ruang_lingkup_kerjasama') == 'Mechanical'   ? 'selected' : '' ?>>Mechanical</option>
+                                    <option value="Civil" <?= old('ruang_lingkup_kerjasama') == 'Civil'        ? 'selected' : '' ?>>Civil</option>
+                                    <option value="Painting" <?= old('ruang_lingkup_kerjasama') == 'Painting'     ? 'selected' : '' ?>>Painting</option>
+                                    <option value="Scafolding" <?= old('ruang_lingkup_kerjasama') == 'Scafolding'   ? 'selected' : '' ?>>Scafolding</option>
+                                    <option value="Insulation" <?= old('ruang_lingkup_kerjasama') == 'Insulation'   ? 'selected' : '' ?>>Insulation</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['ruang_lingkup_kerjasama']) ? $errors['ruang_lingkup_kerjasama'] : 'Silakan pilih jenis kerjasama.' ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dokumen Pendukung -->
+                        <div class="col-md-12">
+                            <label for="dokumen_pendukung" class="form-label fl_proposal">Dokumen Pendukung</label>
                             <input
-                                type="text"
-                                class="form-control fc_native <?= isset($errors['nama_perusahaan']) ? 'is-invalid' : '' ?>"
-                                id="nama_perusahaan"
-                                name="nama_perusahaan"
-                                placeholder="Masukan nama perusahaan"
-                                value="<?= old('nama_perusahaan') ?>"
+                                type="file"
+                                class="form-control fc_native <?= isset($errors['dokumen_pendukung']) ? 'is-invalid' : '' ?>"
+                                name="dokumen_pendukung"
+                                id="proposal"
+                                accept=".pdf"
                                 required>
                             <div class="invalid-feedback">
-                                <?= isset($errors['nama_perusahaan']) ? $errors['nama_perusahaan'] : 'Nama perusahaan wajib diisi.' ?>
+                                <?= isset($errors['dokumen_pendukung']) ? $errors['dokumen_pendukung'] : 'Dokumen Pendukung wajib diunggah (PDF).' ?>
+                            </div>
+                            <div class="upload-note mt-1">Format: PDF • Maksimal 1MB (sesuaikan limit server).</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 d-grid gap-2">
+                        <button class="btn btn-warning btn-sm text-white rounded-pill py-1" type="submit">
+                            <i class="fa-solid fa-file-arrow-up me-1"></i> Up Kerjasama
+                        </button>
+                        <!-- Tambahkan tombol reset jika perlu -->
+                        <button type="reset" class="btn btn-outline-secondary btn-sm rounded-pill py-1">
+                            <i class="fa-solid fa-rotate-left me-1"></i> Reset
+                        </button>
+                    </div>
+                </form>
+            <?php else: ?>
+                <form action="<?= site_url('/pages/cooperation') ?>" method="post" enctype="multipart/form-data" novalidate>
+                    <?= csrf_field() ?>
+                    <?php $errors = session()->get('errors') ?? []; ?>
+
+                    <!-- ⬇️ Tambahkan fieldset disabled -->
+                    <fieldset disabled>
+
+                        <div class="row g-3">
+                            <!-- Nama Perusahaan -->
+                            <div class="col-md-6">
+                                <label for="nama_perusahaan" class="form-label">Nama perusahaan</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-building"></i></span>
+                                    <input
+                                        type="text"
+                                        class="form-control fc_native <?= isset($errors['nama_perusahaan']) ? 'is-invalid' : '' ?>"
+                                        id="nama_perusahaan"
+                                        name="nama_perusahaan"
+                                        placeholder="Masukan nama perusahaan"
+                                        value="<?= old('nama_perusahaan') ?>"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        <?= isset($errors['nama_perusahaan']) ? $errors['nama_perusahaan'] : 'Nama perusahaan wajib diisi.' ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Penanggung Jawab -->
+                            <div class="col-md-6">
+                                <label for="penanggung_jawab" class="form-label">Penanggung jawab</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
+                                    <input
+                                        type="text"
+                                        class="form-control fc_native <?= isset($errors['penanggung_jawab']) ? 'is-invalid' : '' ?>"
+                                        id="penanggung_jawab"
+                                        name="penanggung_jawab"
+                                        placeholder="Masukan nama penanggung jawab"
+                                        value="<?= old('penanggung_jawab') ?>"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        <?= isset($errors['penanggung_jawab']) ? $errors['penanggung_jawab'] : 'Penanggung jawab wajib diisi.' ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Alamat Perusahaan -->
+                            <div class="col-12">
+                                <label for="alamat_perusahaan" class="form-label">Alamat perusahaan</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                                    <textarea
+                                        class="form-control fc_native <?= isset($errors['alamat_perusahaan']) ? 'is-invalid' : '' ?>"
+                                        id="alamat_perusahaan"
+                                        name="alamat_perusahaan"
+                                        placeholder="Masukan alamat perusahaan"
+                                        rows="3"
+                                        required><?= old('alamat_perusahaan') ?></textarea>
+                                    <div class="invalid-feedback">
+                                        <?= isset($errors['alamat_perusahaan']) ? $errors['alamat_perusahaan'] : 'Alamat perusahaan wajib diisi.' ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Jabatan -->
+                            <div class="col-md-6">
+                                <label for="jabatan" class="form-label">Jabatan</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-id-badge"></i></span>
+                                    <input
+                                        type="text"
+                                        class="form-control fc_native <?= isset($errors['jabatan']) ? 'is-invalid' : '' ?>"
+                                        id="jabatan"
+                                        name="jabatan"
+                                        placeholder="Masukan jabatan anda disini"
+                                        value="<?= old('jabatan') ?>"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        <?= isset($errors['jabatan']) ? $errors['jabatan'] : 'Jabatan wajib diisi.' ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Telepon -->
+                            <div class="col-md-6">
+                                <label for="telepon" class="form-label">Telepon</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                    <input
+                                        type="text"
+                                        class="form-control fc_native <?= isset($errors['telepon']) ? 'is-invalid' : '' ?>"
+                                        id="telepon"
+                                        name="telepon"
+                                        placeholder="081212341234"
+                                        value="<?= old('telepon') ?>"
+                                        required>
+                                    <div class="invalid-feedback">
+                                        <?= isset($errors['telepon']) ? $errors['telepon'] : 'Nomor telepon wajib diisi.' ?>
+                                    </div>
+                                </div>
+                                <div class="small-help mt-1">Gunakan format Indonesia (contoh: 0812xxxxxxx).</div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                    <input
+                                        type="email"
+                                        class="form-control fc_native <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
+                                        id="email"
+                                        name="email"
+                                        placeholder="example@gmail.com"
+                                        value="<?= old('email') ?>"
+                                        required
+                                        aria-describedby="emailHelp">
+                                    <div class="invalid-feedback">
+                                        <?= isset($errors['email']) ? $errors['email'] : 'Email wajib diisi & harus valid.' ?>
+                                    </div>
+                                </div>
+                                <div id="emailHelp" class="form-text small-help">Kami tidak akan pernah membagikan email Anda kepada orang lain.</div>
+                            </div>
+
+                            <!-- Kerjasama -->
+                            <div class="col-md-6">
+                                <label for="ruang_lingkup_kerjasama" class="form-label">Kerjasama</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-handshake"></i></span>
+                                    <select
+                                        class="form-select fc_native <?= isset($errors['ruang_lingkup_kerjasama']) ? 'is-invalid' : '' ?>"
+                                        id="ruang_lingkup_kerjasama"
+                                        name="ruang_lingkup_kerjasama"
+                                        required>
+                                        <option selected value="">-- PILIH KERJASAMA --</option>
+                                        <option value="Construction" <?= old('ruang_lingkup_kerjasama') == 'Construction' ? 'selected' : '' ?>>Construction</option>
+                                        <option value="Electrical" <?= old('ruang_lingkup_kerjasama') == 'Electrical'   ? 'selected' : '' ?>>Electrical</option>
+                                        <option value="Mechanical" <?= old('ruang_lingkup_kerjasama') == 'Mechanical'   ? 'selected' : '' ?>>Mechanical</option>
+                                        <option value="Civil" <?= old('ruang_lingkup_kerjasama') == 'Civil'        ? 'selected' : '' ?>>Civil</option>
+                                        <option value="Painting" <?= old('ruang_lingkup_kerjasama') == 'Painting'     ? 'selected' : '' ?>>Painting</option>
+                                        <option value="Scafolding" <?= old('ruang_lingkup_kerjasama') == 'Scafolding'   ? 'selected' : '' ?>>Scafolding</option>
+                                        <option value="Insulation" <?= old('ruang_lingkup_kerjasama') == 'Insulation'   ? 'selected' : '' ?>>Insulation</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        <?= isset($errors['ruang_lingkup_kerjasama']) ? $errors['ruang_lingkup_kerjasama'] : 'Silakan pilih jenis kerjasama.' ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Proposal -->
+                            <div class="col-md-12">
+                                <label for="dokumen_pendukung" class="form-label fl_proposal">Dokumen Pendukung</label>
+                                <input
+                                    type="file"
+                                    class="form-control fc_native <?= isset($errors['dokumen_pendukung']) ? 'is-invalid' : '' ?>"
+                                    name="dokumen_pendukung"
+                                    id="proposal"
+                                    accept=".pdf"
+                                    required>
+                                <div class="invalid-feedback">
+                                    <?= isset($errors['dokumen_pendukung']) ? $errors['dokumen_pendukung'] : 'Dokumen Pendukung wajib diunggah (PDF).' ?>
+                                </div>
+                                <div class="upload-note mt-1">Format: PDF • Maksimal 1MB (sesuaikan limit server).</div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Penanggung Jawab -->
-                    <div class="col-md-6">
-                        <label for="penanggung_jawab" class="form-label">Penanggung jawab</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
-                            <input
-                                type="text"
-                                class="form-control fc_native <?= isset($errors['penanggung_jawab']) ? 'is-invalid' : '' ?>"
-                                id="penanggung_jawab"
-                                name="penanggung_jawab"
-                                placeholder="Masukan nama penanggung jawab"
-                                value="<?= old('penanggung_jawab') ?>"
-                                required>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['penanggung_jawab']) ? $errors['penanggung_jawab'] : 'Penanggung jawab wajib diisi.' ?>
-                            </div>
+                        <div class="mt-3 d-grid gap-2">
+                            <button class="btn btn-warning btn-sm text-white rounded-pill py-1 disabled">
+                                <i class="fa-solid fa-file-arrow-up me-1"></i> Form tidak dapat digunakan
+                            </button>
                         </div>
-                    </div>
 
-                    <!-- Alamat Perusahaan -->
-                    <div class="col-12">
-                        <label for="alamat_perusahaan" class="form-label">Alamat perusahaan</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
-                            <textarea
-                                class="form-control fc_native <?= isset($errors['alamat_perusahaan']) ? 'is-invalid' : '' ?>"
-                                id="alamat_perusahaan"
-                                name="alamat_perusahaan"
-                                placeholder="Masukan alamat perusahaan"
-                                rows="3"
-                                required><?= old('alamat_perusahaan') ?></textarea>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['alamat_perusahaan']) ? $errors['alamat_perusahaan'] : 'Alamat perusahaan wajib diisi.' ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Jabatan -->
-                    <div class="col-md-6">
-                        <label for="jabatan" class="form-label">Jabatan</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-id-badge"></i></span>
-                            <input
-                                type="text"
-                                class="form-control fc_native <?= isset($errors['jabatan']) ? 'is-invalid' : '' ?>"
-                                id="jabatan"
-                                name="jabatan"
-                                placeholder="Masukan jabatan anda disini"
-                                value="<?= old('jabatan') ?>"
-                                required>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['jabatan']) ? $errors['jabatan'] : 'Jabatan wajib diisi.' ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Telepon -->
-                    <div class="col-md-6">
-                        <label for="telepon" class="form-label">Telepon</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
-                            <input
-                                type="text"
-                                class="form-control fc_native <?= isset($errors['telepon']) ? 'is-invalid' : '' ?>"
-                                id="telepon"
-                                name="telepon"
-                                placeholder="081212341234"
-                                value="<?= old('telepon') ?>"
-                                required>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['telepon']) ? $errors['telepon'] : 'Nomor telepon wajib diisi.' ?>
-                            </div>
-                        </div>
-                        <div class="small-help mt-1">Gunakan format Indonesia (contoh: 0812xxxxxxx).</div>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email address</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
-                            <input
-                                type="email"
-                                class="form-control fc_native <?= isset($errors['email']) ? 'is-invalid' : '' ?>"
-                                id="email"
-                                name="email"
-                                placeholder="example@gmail.com"
-                                value="<?= old('email') ?>"
-                                required
-                                aria-describedby="emailHelp">
-                            <div class="invalid-feedback">
-                                <?= isset($errors['email']) ? $errors['email'] : 'Email wajib diisi & harus valid.' ?>
-                            </div>
-                        </div>
-                        <div id="emailHelp" class="form-text small-help">Kami tidak akan pernah membagikan email Anda kepada orang lain.</div>
-                    </div>
-
-                    <!-- Kerjasama -->
-                    <div class="col-md-6">
-                        <label for="ruang_lingkup_kerjasama" class="form-label">Kerjasama</label>
-                        <div class="input-group">
-                            <span class="input-group-text"><i class="fa-solid fa-handshake"></i></span>
-                            <select
-                                class="form-select fc_native <?= isset($errors['ruang_lingkup_kerjasama']) ? 'is-invalid' : '' ?>"
-                                id="ruang_lingkup_kerjasama"
-                                name="ruang_lingkup_kerjasama"
-                                required>
-                                <option selected value="">-- PILIH KERJASAMA --</option>
-                                <option value="Construction" <?= old('ruang_lingkup_kerjasama') == 'Construction' ? 'selected' : '' ?>>Construction</option>
-                                <option value="Electrical" <?= old('ruang_lingkup_kerjasama') == 'Electrical'   ? 'selected' : '' ?>>Electrical</option>
-                                <option value="Mechanical" <?= old('ruang_lingkup_kerjasama') == 'Mechanical'   ? 'selected' : '' ?>>Mechanical</option>
-                                <option value="Civil" <?= old('ruang_lingkup_kerjasama') == 'Civil'        ? 'selected' : '' ?>>Civil</option>
-                                <option value="Painting" <?= old('ruang_lingkup_kerjasama') == 'Painting'     ? 'selected' : '' ?>>Painting</option>
-                                <option value="Scafolding" <?= old('ruang_lingkup_kerjasama') == 'Scafolding'   ? 'selected' : '' ?>>Scafolding</option>
-                                <option value="Insulation" <?= old('ruang_lingkup_kerjasama') == 'Insulation'   ? 'selected' : '' ?>>Insulation</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                <?= isset($errors['ruang_lingkup_kerjasama']) ? $errors['ruang_lingkup_kerjasama'] : 'Silakan pilih jenis kerjasama.' ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Proposal -->
-                    <div class="col-md-6">
-                        <label for="proposal" class="form-label fl_proposal">Proposal</label>
-                        <input
-                            type="file"
-                            class="form-control fc_native <?= isset($errors['proposal']) ? 'is-invalid' : '' ?>"
-                            name="proposal"
-                            id="proposal"
-                            accept=".pdf"
-                            required>
-                        <div class="invalid-feedback">
-                            <?= isset($errors['proposal']) ? $errors['proposal'] : 'Proposal wajib diunggah (PDF).' ?>
-                        </div>
-                        <div class="upload-note mt-1">Format: PDF • Maksimal 1MB (sesuaikan limit server).</div>
-                    </div>
-
-                    <!-- Profil Perusahaan -->
-                    <div class="col-md-6">
-                        <label for="profil_perusahaan" class="form-label fl_perusahaan">Profil Perusahaan</label>
-                        <input
-                            type="file"
-                            class="form-control fc_native <?= isset($errors['profil_perusahaan']) ? 'is-invalid' : '' ?>"
-                            name="profil_perusahaan"
-                            id="profil_perusahaan"
-                            accept=".pdf,.jpg,.jpeg,.png"
-                            required>
-                        <div class="invalid-feedback">
-                            <?= isset($errors['profil_perusahaan']) ? $errors['profil_perusahaan'] : 'Format harus PDF/JPG/PNG.' ?>
-                        </div>
-                        <div class="upload-note mt-1">Format: PDF, JPG, PNG • Maksimal 1MB (sesuaikan limit server).</div>
-                    </div>
-
-                    <!-- Dokumen NPWP -->
-                    <div class="col-md-6">
-                        <label for="dokumen_npwp" class="form-label fl_dnpwp">Dokumen NPWP</label>
-                        <input
-                            type="file"
-                            class="form-control fc_native <?= isset($errors['dokumen_npwp']) ? 'is-invalid' : '' ?>"
-                            name="dokumen_npwp"
-                            id="dokumen_npwp"
-                            accept=".pdf,.jpg,.jpeg,.png"
-                            required>
-                        <div class="invalid-feedback">
-                            <?= isset($errors['dokumen_npwp']) ? $errors['dokumen_npwp'] : 'Format harus PDF/JPG/PNG.' ?>
-                        </div>
-                        <div class="upload-note mt-1">Format: PDF, JPG, PNG • Maksimal 1MB (sesuaikan limit server).</div>
-                    </div>
-
-                    <!-- Surat Pernyataan -->
-                    <div class="col-md-6">
-                        <label for="surat_pernyataan" class="form-label fl_sp">Surat Pernyataan</label>
-                        <input
-                            type="file"
-                            class="form-control fc_native <?= isset($errors['surat_pernyataan']) ? 'is-invalid' : '' ?>"
-                            name="surat_pernyataan"
-                            id="surat_pernyataan"
-                            accept=".pdf"
-                            required>
-                        <div class="invalid-feedback">
-                            <?= isset($errors['surat_pernyataan']) ? $errors['surat_pernyataan'] : 'Format harus PDF.' ?>
-                        </div>
-                        <div class="upload-note mt-1">Format: PDF • Maksimal 1MB (sesuaikan limit server).</div>
-                    </div>
-                </div>
-
-                <div class="mt-3 btn-block">
-                    <button class="btn btn-warning btn-sm text-white" type="submit">
-                        <i class="fa-solid fa-file-arrow-up me-1"></i> Up Kerjasama
-                    </button>
-                    <!-- Tambahkan tombol reset jika perlu -->
-                    <button type="reset" class="btn btn-outline-secondary btn-sm">
-                        <i class="fa-solid fa-rotate-left me-1"></i> Reset
-                    </button>
-                </div>
-            </form>
+                    </fieldset>
+                    <!-- ⬆️ Tutup fieldset -->
+                </form>
+            <?php endif; ?>
         </div>
     </div>
 </div>
+
 
 <!-- Catatan penting untuk WA auto-click -->
 <script>
@@ -1382,6 +1544,71 @@
             }
         });
     })();
+
+    // partikel 
+    // Warna diset fun, bisa ganti sesuai brand kamu
+    const particleConfig = {
+        particles: {
+            number: {
+                value: 70,
+                density: {
+                    enable: true,
+                    value_area: 900
+                }
+            },
+            color: {
+                value: ["#18a0fb", "#22c55e", "#f59e0b", "#ef4444"]
+            },
+            shape: {
+                type: "circle"
+            },
+            opacity: {
+                value: 0.25,
+                random: true
+            },
+            size: {
+                value: 3,
+                random: true
+            },
+            line_linked: {
+                enable: true,
+                distance: 140,
+                color: "#f7be02ff",
+                opacity: 0.28,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 1.2,
+                direction: "none",
+                random: false,
+                straight: false,
+                out_mode: "out",
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: {
+                    enable: false,
+                    mode: "grab"
+                }, // dibikin non-interaktif biar klik form aman
+                onclick: {
+                    enable: false,
+                    mode: "push"
+                },
+                resize: true
+            }
+        },
+        retina_detect: true
+    };
+
+    // Matikan partikel untuk user yang prefer reduced-motion
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!prefersReduced) {
+        particlesJS("particles-bg", particleConfig);
+    }
 </script>
 
 <?= $this->endSection() ?>

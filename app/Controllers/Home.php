@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AboutModel;
+use App\Models\DirekturModel;
 use App\Models\HomeFirstModel;
 use App\Models\ProjectModel;
 use App\Models\ServicesModel;
@@ -15,6 +16,7 @@ class Home extends BaseController
     protected $AboutModel;
     protected $ServicesModel;
     protected $ProjectModel;
+    protected $DirekturModel;
     public function __construct()
     {
         $this->typedModel = new TypedModel();
@@ -22,11 +24,18 @@ class Home extends BaseController
         $this->AboutModel = new AboutModel();
         $this->ServicesModel = new ServicesModel();
         $this->ProjectModel = new ProjectModel();
+        $this->DirekturModel = new DirekturModel();
     }
     public function index()
     {
+        $m_direktur = $this->DirekturModel
+            ->select('no_hp')
+            ->orderBy('created_at', 'DESC')   // pakai created_at terbaru
+            ->first();
+
         $d_FirstHome = $this->HomeFirst->findAll();
         $d_About = $this->AboutModel->findAll();
+        $direktur = $m_direktur;
         $d_services = $this->ServicesModel->limit(3)->getStatusServices();
         $d_project = $this->ProjectModel->limit(3)->findAll();
         $data = [
@@ -37,6 +46,7 @@ class Home extends BaseController
             'd_about' => $d_About,
             'd_services' => $d_services,
             'd_project' => $d_project,
+            'd_direktur' => $direktur
         ];
         return view('index', $data);
     }

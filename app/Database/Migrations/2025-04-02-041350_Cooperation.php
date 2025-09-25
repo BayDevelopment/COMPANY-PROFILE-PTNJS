@@ -58,22 +58,7 @@ class Cooperation extends Migration
                 ],
                 'null' => false,
             ],
-            'proposal' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null' => false
-            ],
-            'profil_perusahaan' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null' => false
-            ],
-            'dokumen_npwp' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null' => false
-            ],
-            'surat_pernyataan' => [
+            'dokumen_pendukung' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
                 'null' => false

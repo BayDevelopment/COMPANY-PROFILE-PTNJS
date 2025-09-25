@@ -6,7 +6,7 @@
         <li class="breadcrumb-item active"><?= esc($sub_judul) ?></li>
     </ol>
     <div class="cover_btn_insert">
-        <a class="btn_a_admin" href="<?= base_url('admin/pages/cooperation') ?>" role="button"><span><i class="fa-solid fa-angle-left"></i></span> Kembali</a>
+        <a class="btn_a_admin rounded-pill py-2" href="<?= base_url('admin/pages/cooperation') ?>" role="button"><span><i class="fa-solid fa-angle-left"></i></span> Kembali</a>
     </div>
     <div class="cover_detail_cooperation">
         <div class="cover_img_cooperation">

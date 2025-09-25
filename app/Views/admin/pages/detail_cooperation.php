@@ -6,7 +6,7 @@
         <li class="breadcrumb-item active"><?= esc($sub_judul) ?></li>
     </ol>
     <div class="cover_btn_insert">
-        <a class="btn_a_admin" href="<?= base_url('admin/pages/cooperation') ?>" role="button"><span><i class="fa-solid fa-angle-left"></i></span> Kembali</a>
+        <a class="btn_a_admin rounded-pill py-2" href="<?= base_url('admin/pages/cooperation') ?>" role="button"><span><i class="fa-solid fa-angle-left"></i></span> Kembali</a>
     </div>
     <div class="cover_detail_cooperation">
         <div class="cover_img_cooperation">
@@ -93,32 +93,14 @@
                     <?php endif; ?>
 
                     <div class="baris-info">
-                        <span class="label">Proposal</span>
+                        <span class="label">Dokumen Pendukung</span>
                         <span class="titik-dua">:</span>
                         <span class="isi">
-                            <a class="" target="_blank" href="<?= base_url('assets/uploads/') . esc($d_cooperation['proposal']) ?>" role="button">Lihat Disini</a>
+                            <a class="" target="_blank" href="<?= base_url('assets/uploads/') . esc($d_cooperation['dokumen_pendukung']) ?>" role="button">Lihat Disini</a>
                         </span>
                         <span class="isi">
-                            <a class="" target="_blank" download="<?= base_url('assets/uploads/') . esc($d_cooperation['proposal']) ?>" href="<?= base_url('assets/uploads/') . esc($d_cooperation['proposal']) ?>" role="button">Download Disini</a>
+                            <a class="" target="_blank" download="<?= base_url('assets/uploads/') . esc($d_cooperation['dokumen_pendukung']) ?>" href="<?= base_url('assets/uploads/') . esc($d_cooperation['dokumen_pendukung']) ?>" role="button">Download Disini</a>
                         </span>
-                    </div>
-                    <div class="baris-info">
-                        <span class="label">Profil Perusahaan</span>
-                        <span class="titik-dua">:</span>
-                        <span class="isi"><a class="" target="_blank" href="<?= base_url('assets/uploads/') . esc($d_cooperation['profil_perusahaan']) ?>" role="button">Lihat Disini</a></span>
-                        <span class="isi"><a class="" target="_blank" download="<?= base_url('assets/uploads/') . esc($d_cooperation['profil_perusahaan']) ?>" href="<?= base_url('assets/uploads/') . esc($d_cooperation['profil_perusahaan']) ?>" role="button">Download Disini</a></span>
-                    </div>
-                    <div class="baris-info">
-                        <span class="label">Dokumen Npwp</span>
-                        <span class="titik-dua">:</span>
-                        <span class="isi"><a class="" target="_blank" href="<?= base_url('assets/uploads/') . esc($d_cooperation['dokumen_npwp']) ?>" role="button">Lihat Disini</a></span>
-                        <span class="isi"><a class="" target="_blank" download="<?= base_url('assets/uploads/') . esc($d_cooperation['dokumen_npwp']) ?>" href="<?= base_url('assets/uploads/') . esc($d_cooperation['dokumen_npwp']) ?>" role="button">Download Disini</a></span>
-                    </div>
-                    <div class="baris-info">
-                        <span class="label">Surat Pernyataan Kerjasam</span>
-                        <span class="titik-dua">:</span>
-                        <span class="isi"><a class="" target="_blank" href="<?= base_url('assets/uploads/') . esc($d_cooperation['surat_pernyataan']) ?>" role="button">Lihat Disini</a></span>
-                        <span class="isi"><a class="" target="_blank" download="<?= base_url('assets/uploads/') . esc($d_cooperation['surat_pernyataan']) ?>" href="<?= base_url('assets/uploads/') . esc($d_cooperation['surat_pernyataan']) ?>" role="button">Download Disini</a></span>
                     </div>
                 </div>
             </div>
