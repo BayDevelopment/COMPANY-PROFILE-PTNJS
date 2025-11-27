@@ -19,8 +19,12 @@ $routes->post('/pages/pesan-wa', 'Contact::pesan_wa');
 // login dan logout
 $routes->get('/auth/login', 'Login::index', ['filter' => 'redirectIfLogin']);
 $routes->post('/auth/login', 'Login::login_aksi');
-$routes->get('/auth/lupa-password', 'Login::lupa_password', ['filter' => 'redirectIfLogin']);
-$routes->post('/auth/lupa-password', 'Login::aksi_lupa_password');
+// forgot password
+$routes->get('/auth/forgot-password', 'Login::lupa_password', ['filter' => 'redirectIfLogin']);
+$routes->post('/auth/forgot-password', 'Login::sendResetLink');
+$routes->get('/auth/forgot-password/(:any)', 'Login::resetPassword/$1');
+$routes->post('/auth/forgot-password/reset', 'Login::processResetPassword');
+// logout
 $routes->get('/admin/logout', 'Login::logout_admin');
 
 $routes->group('admin', ['filter' => 'loginTimeout'], function ($routes) {

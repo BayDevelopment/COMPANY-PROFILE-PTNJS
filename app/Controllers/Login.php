@@ -17,9 +17,10 @@ class Login extends BaseController
 
     public function index()
     {
-        //
+        $validation = session()->getFlashdata('validation') ?? \Config\Services::validation();
         $data = [
-            'title' => 'Login | PT. Najwa Jaya Sukses'
+            'title' => 'Login | PT. Najwa Jaya Sukses',
+            'validation' => $validation
         ];
 
         // logika satu activity ( jika sudah login, maka tidak bisa kehalaman login jika belum logout)
@@ -109,65 +110,121 @@ class Login extends BaseController
         return redirect()->to('/auth/login');
     }
 
+    // lupa password
     public function lupa_password()
     {
+        $validation = session()->getFlashdata('validation') ?? \Config\Services::validation();
+
         $data = [
-            'title' => 'Lupa Password'
+            'title' => 'Lupa Password | PT. Najwa Jaya Sukses',
+            'validation' => $validation
         ];
         return view('/admin/lupa_password', $data);
     }
-    public function aksi_lupa_password()
+
+    public function sendResetLink()
     {
-        date_default_timezone_set('Asia/Jakarta');
+        $email = $this->request->getPost('email');
 
-        $email = trim((string) $this->request->getPost('email'));
-
-        // Cek email pemohon
         $user = $this->AdminModel->where('email', $email)->first();
         if (!$user) {
-            return redirect()->back()->with('sweet_error', 'Email tidak terdaftar.');
+            return redirect()->back()->with('sweet_error', 'Email tidak ditemukan.');
         }
 
-        // Cari superadmin yang punya no_hp, pilih yang paling baru (created_at DESC)
-        $admin = $this->AdminModel
-            ->where('id_admin', 1)
-            ->where('no_hp IS NOT NULL', null, false)
-            ->where('no_hp !=', '')
-            ->orderBy('created_at', 'DESC')
-            ->first();
+        // generate token
+        $token   = bin2hex(random_bytes(32));
+        $expires = date('Y-m-d H:i:s', strtotime('+30 minutes'));
 
-        // Fallback: admin lain yang punya no_hp, tetap pilih yang paling baru
-        if (!$admin) {
-            $admin = $this->AdminModel
-                ->where('no_hp IS NOT NULL', null, false)
-                ->where('no_hp !=', '')
-                ->orderBy('created_at', 'DESC')
-                ->first();
+        // simpan token
+        $this->AdminModel->update($user['id_admin'], [
+            'reset_token'   => $token,
+            'reset_expires' => $expires
+        ]);
+
+        // buat link reset
+        $link = base_url('auth/forgot-password/' . $token);
+
+        // kirim email
+        $emailService = \Config\Services::email();
+        $emailService->setFrom('byalbrldici@gmail.com', 'PT. Najwa Jaya Sukses');
+        $emailService->setTo($email);
+        $emailService->setSubject('Reset Password');
+        $emailService->setMessage("
+        Klik link berikut untuk reset password:<br><br>
+        <a href='$link'>$link</a><br><br>
+        Link berlaku selama 30 menit.
+    ");
+
+        // WAJIB untuk Gmail
+        $emailService->setNewline("\r\n");
+        $emailService->setCRLF("\r\n");
+
+        if (!$emailService->send()) {
+            return redirect()->back()->with('sweet_error', $emailService->printDebugger());
         }
 
-        if (!$admin) {
-            return redirect()->back()->with('sweet_error', 'Nomor WhatsApp admin belum disetel.');
-        }
-
-        $waPhone = $this->normalizeWaNumber($admin['no_hp'] ?? '');
-        if (!$waPhone) {
-            return redirect()->back()->with('sweet_error', 'Format nomor WhatsApp admin tidak valid.');
-        }
-
-        $waktu = date('Y-m-d H:i:s');
-        $msg   = rawurlencode("🔐 Permintaan Lupa Password\nEmail: {$email}\nWaktu: {$waktu}");
-
-        return redirect()->to("https://wa.me/{$waPhone}?text={$msg}");
+        return redirect()->back()->with('sweet_success', 'Link reset password telah dikirim ke email.');
     }
 
-    private function normalizeWaNumber(string $phone): ?string
+    public function resetPassword($token)
     {
-        $digits = preg_replace('/\D+/', '', $phone ?? '');
-        if ($digits === '') return null;
+        $user = $this->AdminModel->where('reset_token', $token)->first();
 
-        if (strpos($digits, '62') === 0) return $digits;
-        if ($digits[0] === '0') return '62' . substr($digits, 1);
-        if ($digits[0] === '8') return '62' . $digits;
-        return $digits; // fallback
+        if (!$user || strtotime($user['reset_expires']) < time()) {
+            return redirect()->to('auth/forgot-password')->with('sweet_error', 'Token tidak valid atau sudah expired.');
+        }
+
+        return view('admin/reset_password', [
+            'title' => 'Forgot Password | PT. Najwa Jaya Sukses',
+            'token' => $token
+        ]);
+    }
+
+    public function processResetPassword()
+    {
+        $token    = $this->request->getPost('token');
+        $password = $this->request->getPost('password');
+
+        // ambil user berdasarkan token
+        $user = $this->AdminModel->where('reset_token', $token)->first();
+
+        if (!$user) {
+            return redirect()->to('auth/forgot-password')->with('sweet_error', 'Token invalid.');
+        }
+
+        // VALIDASI PASSWORD MINIMAL 6 KARAKTER
+        $validate = $this->validate([
+            'password' => [
+                'rules'  => 'required|min_length[6]',
+                'errors' => [
+                    'required'    => 'Password wajib diisi.',
+                    'min_length'  => 'Password minimal 6 karakter.'
+                ]
+            ],
+
+            'confirm_password' => [
+                'rules'  => 'required|matches[password]',
+                'errors' => [
+                    'required' => 'Konfirmasi password wajib diisi.',
+                    'matches'  => 'Konfirmasi password harus sama dengan password.'
+                ]
+            ],
+        ]);
+
+        if (!$validate) {
+            // simpan error untuk ditampilkan di view (SweetAlert)
+            return redirect()->back()
+                ->withInput()
+                ->with('error', $this->validator->getError('password'));
+        }
+
+        // update password
+        $this->AdminModel->update($user['id_admin'], [
+            'password'      => password_hash($password, PASSWORD_ARGON2ID),
+            'reset_token'   => null,
+            'reset_expires' => null
+        ]);
+
+        return redirect()->to('/auth/login')->with('sweet_success', 'Password berhasil direset.');
     }
 }

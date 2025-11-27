@@ -7,11 +7,11 @@
         <div class="auth-header text-center p-4">
             <img src="<?= base_url('/assets/img/logo.jpg') ?>" alt="PT. Najwa Jaya Sukses" class="logo-auth mb-2">
             <h5 class="mb-1 fw-bold text-warning">Pemulihan Akun</h5>
-            <p class="text-muted mb-0">Masukkan email terdaftar dan konfirmasikan kepada admin.</p>
+            <p class="text-muted mb-0">Masukkan email yang udah terdaftar!</p>
         </div>
 
         <div class="card-body p-4 pt-3">
-            <form action="<?= site_url('/auth/lupa-password') ?>" method="POST" novalidate id="forgotForm">
+            <form action="<?= site_url('/auth/forgot-password') ?>" method="POST" novalidate id="forgotForm">
                 <?= csrf_field() ?>
 
                 <!-- Email -->
@@ -30,7 +30,7 @@
                         <span class="btn-loading d-none"><i class="fa-solid fa-spinner fa-spin me-2"></i> Mengirim...</span>
                     </button>
 
-                    <a class="btn_a_admin text-center" href="<?= base_url('/auth/login') ?>" role="button">
+                    <a class="btn-native-login btn-gradient text-decoration-none" href="<?= base_url('/auth/login') ?>" role="button">
                         <i class="fa-solid fa-arrow-left me-1"></i> Back to Login
                     </a>
                 </div>

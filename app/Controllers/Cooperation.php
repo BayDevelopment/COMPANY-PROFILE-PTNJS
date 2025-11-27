@@ -272,37 +272,48 @@ class Cooperation extends BaseController
 
     public function exportPdf($id)
     {
-        ini_set('memory_limit', '1024M'); // Tambah memori
-
+        // Tambah resource (opsional)
+        ini_set('memory_limit', '1024M');
         set_time_limit(300);
 
-        $d_cooperation = $this->ModelCooperation->find($id);
-
-        if (!$d_cooperation) {
+        // Ambil data
+        $d = $this->ModelCooperation->find($id); // pastikan property/modelnya benar
+        if (! $d) {
             return redirect()->back()->with('sweet_error', 'Data tidak ditemukan');
         }
 
-        // Load gambar dan ubah ke base64
+        // Siapkan logo base64
         $path = FCPATH . 'assets/img/logo.jpg';
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $base64_logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        $mime = pathinfo($path, PATHINFO_EXTENSION) === 'png' ? 'image/png' : 'image/jpeg';
+        $base64_logo = 'data:' . $mime . ';base64,' . base64_encode(@file_get_contents($path) ?: '');
 
-        // Dompdf setup
+        // Render view ke HTML string
+        $html = view('admin/pages/pdf_template', [
+            'd_cooperation' => $d,
+            'logoBase64'    => $base64_logo
+        ]);
+
+        // Setup Dompdf
         $options = new Options();
         $options->set('isRemoteEnabled', true);
         $options->set('defaultFont', 'DejaVu Sans');
+
         $dompdf = new Dompdf($options);
-
-        // Kirim ke view
-        $html = view('admin/pages/pdf_template', [
-            'd_cooperation' => $d_cooperation,
-            'logoBase64' => $base64_logo
-        ]);
-
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $dompdf->stream("Kerjasama_{$id}.pdf", ["Attachment" => false]);
+
+        // Bersihkan buffer supaya header tidak korup
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
+        // Ambil biner PDF & kirim via Response CI4
+        $pdf = $dompdf->output();
+
+        return $this->response
+            ->setContentType('application/pdf')
+            ->setHeader('Content-Disposition', 'inline; filename="Kerjasama_' . $id . '.pdf"')
+            ->setBody($pdf);
     }
 }

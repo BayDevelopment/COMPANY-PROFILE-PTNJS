@@ -27,7 +27,7 @@
                 <!-- Password + toggle -->
                 <div class="form-floating mb-2 position-relative">
                     <input class="form-control fc_native pe-5" id="inputPassword" type="password" name="password"
-                        placeholder="Password" minlength="8" required>
+                        placeholder="Password" minlength="6" required>
                     <label for="inputPassword"><i class="fa-solid fa-key me-1"></i> Password</label>
 
                     <button type="button" class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2 rounded-pill"
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between mt-2 mb-2">
-                    <a class="small text-decoration-none" href="<?= base_url('/auth/lupa-password') ?>">
+                    <a class="small text-decoration-none" href="<?= base_url('/auth/forgot-password') ?>">
                         <i class="fa-regular fa-circle-question me-1"></i> Forgot Password?
                     </a>
                 </div>

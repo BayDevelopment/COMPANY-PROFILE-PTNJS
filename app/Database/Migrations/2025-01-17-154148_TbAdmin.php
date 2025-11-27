@@ -23,6 +23,15 @@ class TbAdmin extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '50',
             ],
+            'reset_token' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'null'       => true,
+            ],
+            'reset_expires' => [
+                'type'    => 'DATETIME',
+                'null'    => true,
+            ],
             'password' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
